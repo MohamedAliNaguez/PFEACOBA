@@ -2,12 +2,16 @@ name: Daily Playwright Tests
 
 on:
   schedule:
-    - cron: '0 0 * * *'  # Runs every day at 00:00 U
+    - cron: '0 0 * * *'  # Runs every day at 00:00 UTC
   workflow_dispatch:      # Allows manual trigger
 
 jobs:
   test:
     runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: Playwrightest  # Set working directory for all steps
 
     steps:
       - name: Checkout code
