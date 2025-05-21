@@ -2,7 +2,7 @@ name: Daily Playwright Tests
 
 on:
   schedule:
-    - cron: '0 0 * * *'  # Runs every day at 00:00 UTC
+    - cron: '0 0 * * *'  # Runs every day at 00:00 U
   workflow_dispatch:      # Allows manual trigger
 
 jobs:
@@ -16,7 +16,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '20'  # Adjust if needed
+          node-version: '20' 
 
       - name: Install dependencies
         run: npm install
