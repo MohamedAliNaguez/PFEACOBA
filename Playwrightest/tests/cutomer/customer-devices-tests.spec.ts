@@ -39,7 +39,8 @@ test.describe('Customer Device Management', () => {
     await connectAsTestCustomer(page);
     await page.getByRole('link', { name: 'My Devices' }).click();
     await expect(page.getByRole('button', { name: 'Add device' })).toBeVisible();
-    await page.locator('span').filter({ hasText: 'Delete' }).first().click();
+    await page.hover('button:has-text("Delete")');
+    await page.getByRole('button', { name: 'Delete' }).click();
     await expect(page.getByText('Are you sure you want to')).toBeVisible();
     await page.getByRole('button', { name: 'Delete' }).click();
     await expect(page.getByText('Device deleted successfully')).toBeVisible();

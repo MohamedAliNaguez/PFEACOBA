@@ -21,8 +21,8 @@ test.describe('Distributor Authentication Tests', () => {
 
   test('Login with empty fields', async ({ page }) => {
     await page.getByRole('button', { name: 'Login' }).click();
-    await expect(page.getByText("Field 'Email' is required")).toBeVisible();
-    await expect(page.getByText("Field 'Password' is required")).toBeVisible();
+    await expect(page.getByText('Field \'Email\' is required')).toBeVisible();
+    await expect(page.getByText('Field \'Password\' is required')).toBeVisible();
   });
 
   test('Login with incorrectly formatted email', async ({ page }) => {
