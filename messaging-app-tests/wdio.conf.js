@@ -53,9 +53,9 @@ exports.config = {
   platformName: 'Android',
   'appium:deviceName': 'emulator-5554',
   'appium:automationName': 'UiAutomator2',
-  'appium:platformVersion': '14', // Android version
-  'appium:appPackage': 'com.google.android.apps.messaging',
-  'appium:appActivity': 'com.google.android.apps.messaging.ui.ConversationListActivity',
+  'appium:platformVersion': '15',
+  'appium:appPackage': 'com.acoba.cms.id.stg', // <-- updated
+  'appium:appActivity': 'com.acoba.cms.id.MainActivity', // <-- updated
   'appium:noReset': true,
   'appium:autoGrantPermissions': true
 }],
