@@ -1,0 +1,1626 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 7.3 (Python 3.13.5 on win32)" generated="2025-06-13T12:34:42.102424" rpa="false" schemaversion="5">
+<suite id="s1" name="API TVC" source="C:\Users\Daly\Downloads\testAutoTVC\testAutoTVC\API_TVC.robot">
+<test id="s1-t1" name="Initialize CSV Results File" line="54">
+<kw name="Setup CSV File">
+<kw name="Get Current Date" owner="DateTime">
+<msg time="2025-06-13T12:34:42.418439" level="INFO">${now} = 20250613_123442</msg>
+<var>${now}</var>
+<arg>result_format=%Y%m%d_%H%M%S</arg>
+<doc>Returns current local or UTC time with an optional increment.</doc>
+<status status="PASS" start="2025-06-13T12:34:42.418261" elapsed="0.000205"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2025-06-13T12:34:42.418673" level="INFO">${file} = camera_test_results_20250613_123442.csv</msg>
+<var>${file}</var>
+<arg>camera_test_results_${now}.csv</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-06-13T12:34:42.418553" elapsed="0.000137"/>
+</kw>
+<kw name="Create List" owner="BuiltIn">
+<msg time="2025-06-13T12:34:42.418845" level="INFO">${header} = ['Date/Heure', 'Configuration', 'Valeur testée', 'Résultat', 'body']</msg>
+<var>${header}</var>
+<arg>Date/Heure</arg>
+<arg>Configuration</arg>
+<arg>Valeur testée</arg>
+<arg>Résultat</arg>
+<arg>body</arg>
+<doc>Returns a list containing given items.</doc>
+<status status="PASS" start="2025-06-13T12:34:42.418754" elapsed="0.000111"/>
+</kw>
+<kw name="Catenate" owner="BuiltIn">
+<msg time="2025-06-13T12:34:42.419024" level="INFO">${header_str} = Date/Heure,Configuration,Valeur testée,Résultat,body</msg>
+<var>${header_str}</var>
+<arg>SEPARATOR=,</arg>
+<arg>@{header}</arg>
+<doc>Catenates the given items together and returns the resulted string.</doc>
+<status status="PASS" start="2025-06-13T12:34:42.418925" elapsed="0.000113"/>
+</kw>
+<kw name="Create File" owner="OperatingSystem">
+<msg time="2025-06-13T12:34:42.419729" level="INFO" html="true">Created file '&lt;a href="file://C:\Users\Daly\Downloads\testAutoTVC\testAutoTVC\camera_test_results_20250613_123442.csv"&gt;C:\Users\Daly\Downloads\testAutoTVC\testAutoTVC\camera_test_results_20250613_123442.csv&lt;/a&gt;'.</msg>
+<arg>${file}</arg>
+<arg>${header_str}\n</arg>
+<doc>Creates a file with the given content and encoding.</doc>
+<status status="PASS" start="2025-06-13T12:34:42.419096" elapsed="0.000715"/>
+</kw>
+<kw name="Set Suite Variable" owner="BuiltIn">
+<msg time="2025-06-13T12:34:42.420697" level="INFO">${CSV_FILE} = camera_test_results_20250613_123442.csv</msg>
+<arg>${CSV_FILE}</arg>
+<arg>${file}</arg>
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<status status="PASS" start="2025-06-13T12:34:42.419925" elapsed="0.000805"/>
+</kw>
+<kw name="Set Suite Variable" owner="BuiltIn">
+<msg time="2025-06-13T12:34:42.420949" level="INFO">${now} = 20250613_123442</msg>
+<arg>${now}</arg>
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<status status="PASS" start="2025-06-13T12:34:42.420832" elapsed="0.000141"/>
+</kw>
+<status status="PASS" start="2025-06-13T12:34:42.417799" elapsed="0.003215"/>
+</kw>
+<doc>Create CSV file with headers if it doesn't exist</doc>
+<status status="PASS" start="2025-06-13T12:34:42.417222" elapsed="0.003969"/>
+</test>
+<test id="s1-t2" name="Login And Set Bearer Token" line="94">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2025-06-13T12:34:42.422367" level="INFO">${payload} = {'email': 'montassar.jeddou@acoba.com', 'password': 'Acoba1234?'}</msg>
+<var>${payload}</var>
+<arg>email=${EMAIL_LOGIN}</arg>
+<arg>password=${PASSWORD_LOGIN}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2025-06-13T12:34:42.422036" elapsed="0.000355"/>
+</kw>
+<kw name="Send Post Request">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2025-06-13T12:34:42.422964" level="INFO">Creating Session using : alias=api_session, url=https://api.acdevftp.com/api/auth/login, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=True,                     debug=0 </msg>
+<arg>api_session</arg>
+<arg>${endpoint}</arg>
+<arg>verify=True</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2025-06-13T12:34:42.422844" elapsed="0.000263"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2025-06-13T12:34:42.423324" level="INFO">&amp;{headers} = { Content-Type=application/json }</msg>
+<var>&amp;{headers}</var>
+<arg>Content-Type=application/json</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2025-06-13T12:34:42.423191" elapsed="0.000164"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2025-06-13T12:34:42.423696" level="INFO">${payload_json} = {"email": "montassar.jeddou@acoba.com", "password": "Acoba1234?"}</msg>
+<var>${payload_json}</var>
+<arg>json.dumps(${payload})</arg>
+<arg>json</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2025-06-13T12:34:42.423422" elapsed="0.000294"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>\nSending POST request to ${endpoint}:\n${payload_json}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-06-13T12:34:42.423797" elapsed="0.000332"/>
+</kw>
+<kw name="Post Request" owner="RequestsLibrary">
+<msg time="2025-06-13T12:34:42.424272" level="WARN">Keyword 'RequestsLibrary.Post Request' is deprecated. Please use `POST On Session` instead.</msg>
+<msg time="2025-06-13T12:34:42.751549" level="INFO">POST Request : url=https://api.acdevftp.com/api/auth/login 
+ path_url=/api/auth/login 
+ headers={'User-Agent': 'python-requests/2.32.4', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Content-Length': '65'} 
+ body=b'{"email": "montassar.jeddou@acoba.com", "password": "Acoba1234?"}' 
+ </msg>
+<msg time="2025-06-13T12:34:42.751630" level="INFO">POST Response : url=https://api.acdevftp.com/api/auth/login 
+ status=200, reason=OK 
+ headers={'Date': 'Fri, 13 Jun 2025 11:34:42 GMT', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '1082', 'Connection': 'keep-alive', 'Server': 'Apache/2.4.62 (Amazon Linux) OpenSSL/3.0.8', 'Access-Control-Allow-Origin': '*', 'Content-Security-Policy': "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests", 'Cross-Origin-Opener-Policy': 'same-origin', 'Cross-Origin-Resource-Policy': 'same-origin', 'Origin-Agent-Cluster': '?1', 'Referrer-Policy': 'no-referrer', 'Strict-Transport-Security': 'max-age=15552000; includeSubDomains', 'X-Content-Type-Options': 'nosniff', 'X-DNS-Prefetch-Control': 'off', 'X-Download-Options': 'noopen', 'X-Frame-Options': 'SAMEORIGIN', 'X-Permitted-Cross-Domain-Policies': 'none', 'X-XSS-Protection': '0', 'X-RateLimit-Limit': '1000', 'X-RateLimit-Remaining': '994', 'X-RateLimit-Reset': '1749814979', 'ETag': 'W/"43a-hTswKaGhwkVxZhrhatlmUFDLfIk"'} 
+ body={"http_code":200,"message":{"success":1},"data":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbmNyeXB0ZWRQYXlsb2FkIjoiZXlKaGJHY2lPaUpTVTBFdFQwRkZVQ0lzSW1WdVl5STZJa0V5TlRaSFEwMGlMQ0pyYVdRaU9pSkhVSFowVEZOM1MyOUJNVEoxYVc5WGMzSXplV2hoZFdOSldHMTJSSFZVYldOVWNYazFRUzFFYlZaekluMC5FdllGS3RNZk5kY1IzS3l4LXZoY1ZSVVNlSjlETEJnTjNYaE96TEVmNXZqRmlRbFlaMGJTbnN6ZlRnLTJ5OHIwNU1LR2lHVTQ2eXRHZXhHdklkV1QxZTFkZEZpbm9NcnJ4V1MtNlVtTzY3TGZTZHptN1RyRnllcXJKVXRMUFpZbnR4UHJmVjFILW1wSms4M3RYTlRrVS1BU1NLZVpvNlRpaU5hazJtMWJaM0hLakxOQ0JFak05N0I2VTczbVVZTFVYbl9OeVQwUllfeHFrcGJwczBlZTU0T21ieGNudUF1Q2lMbWZMODJVeDFWUkJZZUo5bmNvUnV2SFRrLXNFcHFUam9lU0V2T3ZmRDEwX3VQSTZaX1lfTUNCOG04VV9sSFdlZkM3RVhweC1uRlI2NE12T2JBeTdfbVNrLW03cVc1MkVPcDlnWFMtRVBuYXdDUGR2UWhnYUEuQXdwdUFXUldxbmswYWxoeS5HZmlDUWFhTU1wRUNxQUFSb2pCQWJ0UFpTeURtRFNXbllkenE5Y2E4UjVpalVkSTBiWkQxdEdPUVNKanRyZHoxSEV6N3RBUkNDOU9zSi1BYVA4RjBveVJOQmNkWk5XMVl1alhQZE9lYnZCZ3BEWVIycERmdUk1R29xWnlldzZfTG5YTzVSSmt3MmhnaC1kUlRCeVR5YzJiY1NNX3AuR09semFTOWhGMzB6UFM0aXJCcmtGZyIsImlhdCI6MTc0OTgxNDQ4MiwiZXhwIjoxNzQ5ODE2MjgyfQ.VfWGmjkVexZ_I4JIqphdHBPpL91yEdlHOauWAINpbvo"} 
+ </msg>
+<msg time="2025-06-13T12:34:42.751873" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<var>${response}</var>
+<arg>api_session</arg>
+<arg>${endpoint}</arg>
+<arg>headers=${headers}</arg>
+<arg>data=${payload_json}</arg>
+<doc>*DEPRECATED* Please use `POST On Session` instead.</doc>
+<status status="PASS" start="2025-06-13T12:34:42.424245" elapsed="0.327649"/>
+</kw>
+<return>
+<value>${response.status_code}</value>
+<value>${response.text}</value>
+<status status="PASS" start="2025-06-13T12:34:42.751955" elapsed="0.000043"/>
+</return>
+<msg time="2025-06-13T12:34:42.752827" level="INFO">${status} = 200</msg>
+<msg time="2025-06-13T12:34:42.752860" level="INFO">${body} = {"http_code":200,"message":{"success":1},"data":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbmNyeXB0ZWRQYXlsb2FkIjoiZXlKaGJHY2lPaUpTVTBFdFQwRkZVQ0lzSW1WdVl5STZJa0V5TlRaSFEwMGlMQ0pyYVdRaU9pSkhVSFowVEZOM1...</msg>
+<var>${status}</var>
+<var>${body}</var>
+<arg>${API_URL_LOGIN}</arg>
+<arg>${payload}</arg>
+<status status="PASS" start="2025-06-13T12:34:42.422643" elapsed="0.330239"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2025-06-13T12:34:42.753417" level="INFO">${body_dict} = {'http_code': 200, 'message': {'success': 1}, 'data': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbmNyeXB0ZWRQYXlsb2FkIjoiZXlKaGJHY2lPaUpTVTBFdFQwRkZVQ0lzSW1WdVl5STZJa0V5TlRaSFEwMGlMQ0pyYVdRaU9pSkhVSFow...</msg>
+<var>${body_dict}</var>
+<arg>json.loads('''${body}''')</arg>
+<arg>json</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2025-06-13T12:34:42.753176" elapsed="0.000259"/>
+</kw>
+<if>
+<branch type="IF" condition="${status} == 200 and &quot;data&quot; in ${body_dict}">
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2025-06-13T12:34:42.754264" level="INFO">${BEARER_TOKEN} = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbmNyeXB0ZWRQYXlsb2FkIjoiZXlKaGJHY2lPaUpTVTBFdFQwRkZVQ0lzSW1WdVl5STZJa0V5TlRaSFEwMGlMQ0pyYVdRaU9pSkhVSFowVEZOM1MyOUJNVEoxYVc5WGMzSXplV2hoZFdOSldHMTJSSFZVYldOVWN...</msg>
+<var>${BEARER_TOKEN}</var>
+<arg>${body_dict["data"]}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-06-13T12:34:42.753863" elapsed="0.000419"/>
+</kw>
+<kw name="Set Suite Variable" owner="BuiltIn">
+<msg time="2025-06-13T12:34:42.754447" level="INFO">${BEARER_TOKEN} = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbmNyeXB0ZWRQYXlsb2FkIjoiZXlKaGJHY2lPaUpTVTBFdFQwRkZVQ0lzSW1WdVl5STZJa0V5TlRaSFEwMGlMQ0pyYVdRaU9pSkhVSFowVEZOM1MyOUJNVEoxYVc5WGMzSXplV2hoZFdOSldHMTJSSFZVYldOVWN...</msg>
+<arg>${BEARER_TOKEN}</arg>
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<status status="PASS" start="2025-06-13T12:34:42.754353" elapsed="0.000117"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>✅ Token récupéré avec succès: ${BEARER_TOKEN}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-06-13T12:34:42.754523" elapsed="0.000358"/>
+</kw>
+<status status="PASS" start="2025-06-13T12:34:42.753682" elapsed="0.001232"/>
+</branch>
+<branch type="ELSE">
+<kw name="Fail" owner="BuiltIn">
+<arg>❌ Login échoué ou token manquant - Réponse: ${body}</arg>
+<doc>Fails the test with the given message and optionally alters its tags.</doc>
+<status status="NOT RUN" start="2025-06-13T12:34:42.755015" elapsed="0.000012"/>
+</kw>
+<status status="NOT RUN" start="2025-06-13T12:34:42.754938" elapsed="0.000116"/>
+</branch>
+<status status="PASS" start="2025-06-13T12:34:42.753658" elapsed="0.001411"/>
+</if>
+<doc>Login to retrieve Bearer Token and store it</doc>
+<status status="PASS" start="2025-06-13T12:34:42.421724" elapsed="0.333488"/>
+</test>
+<test id="s1-t3" name="Create Device With Token" line="108">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2025-06-13T12:34:42.756469" level="INFO">${headers} = {'Content-Type': 'application/json', 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbmNyeXB0ZWRQYXlsb2FkIjoiZXlKaGJHY2lPaUpTVTBFdFQwRkZVQ0lzSW1WdVl5STZJa0V5TlRaSFEwMGlMQ0pyYVdRaU9pS...</msg>
+<var>${headers}</var>
+<arg>Content-Type=application/json</arg>
+<arg>Authorization=Bearer ${BEARER_TOKEN}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2025-06-13T12:34:42.756272" elapsed="0.000220"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2025-06-13T12:34:42.756966" level="INFO">${payload} = {'manufacturer': 'Dahua', 'device_type': 'NVR', 'channels': '16', 'name': 'testtchayma', 'site_id': '0EA66914-879C-FEF5-4BE5-7F7B0C9480DC'}</msg>
+<var>${payload}</var>
+<arg>manufacturer=Dahua</arg>
+<arg>device_type=NVR</arg>
+<arg>channels=16</arg>
+<arg>name=testtchayma</arg>
+<arg>site_id=0EA66914-879C-FEF5-4BE5-7F7B0C9480DC</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2025-06-13T12:34:42.756757" elapsed="0.000229"/>
+</kw>
+<kw name="Send Post Request With Headers">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2025-06-13T12:34:42.757691" level="INFO">Creating Session using : alias=api_session, url=https://api.acdevftp.com/api/device, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=True,                     debug=0 </msg>
+<arg>api_session</arg>
+<arg>${endpoint}</arg>
+<arg>verify=True</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2025-06-13T12:34:42.757569" elapsed="0.000237"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2025-06-13T12:34:42.758067" level="INFO">${payload_json} = {"manufacturer": "Dahua", "device_type": "NVR", "channels": "16", "name": "testtchayma", "site_id": "0EA66914-879C-FEF5-4BE5-7F7B0C9480DC"}</msg>
+<var>${payload_json}</var>
+<arg>json.dumps(${payload})</arg>
+<arg>json</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2025-06-13T12:34:42.757873" elapsed="0.000211"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>\nSending POST request to ${endpoint}:\n${payload_json}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-06-13T12:34:42.758144" elapsed="0.000280"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>\nUsing Headers: ${headers}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-06-13T12:34:42.758506" elapsed="0.000682"/>
+</kw>
+<kw name="Post Request" owner="RequestsLibrary">
+<msg time="2025-06-13T12:34:42.759335" level="WARN">Keyword 'RequestsLibrary.Post Request' is deprecated. Please use `POST On Session` instead.</msg>
+<msg time="2025-06-13T12:34:43.061459" level="INFO">POST Request : url=https://api.acdevftp.com/api/device 
+ path_url=/api/device 
+ headers={'User-Agent': 'python-requests/2.32.4', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbmNyeXB0ZWRQYXlsb2FkIjoiZXlKaGJHY2lPaUpTVTBFdFQwRkZVQ0lzSW1WdVl5STZJa0V5TlRaSFEwMGlMQ0pyYVdRaU9pSkhVSFowVEZOM1MyOUJNVEoxYVc5WGMzSXplV2hoZFdOSldHMTJSSFZVYldOVWNYazFRUzFFYlZaekluMC5FdllGS3RNZk5kY1IzS3l4LXZoY1ZSVVNlSjlETEJnTjNYaE96TEVmNXZqRmlRbFlaMGJTbnN6ZlRnLTJ5OHIwNU1LR2lHVTQ2eXRHZXhHdklkV1QxZTFkZEZpbm9NcnJ4V1MtNlVtTzY3TGZTZHptN1RyRnllcXJKVXRMUFpZbnR4UHJmVjFILW1wSms4M3RYTlRrVS1BU1NLZVpvNlRpaU5hazJtMWJaM0hLakxOQ0JFak05N0I2VTczbVVZTFVYbl9OeVQwUllfeHFrcGJwczBlZTU0T21ieGNudUF1Q2lMbWZMODJVeDFWUkJZZUo5bmNvUnV2SFRrLXNFcHFUam9lU0V2T3ZmRDEwX3VQSTZaX1lfTUNCOG04VV9sSFdlZkM3RVhweC1uRlI2NE12T2JBeTdfbVNrLW03cVc1MkVPcDlnWFMtRVBuYXdDUGR2UWhnYUEuQXdwdUFXUldxbmswYWxoeS5HZmlDUWFhTU1wRUNxQUFSb2pCQWJ0UFpTeURtRFNXbllkenE5Y2E4UjVpalVkSTBiWkQxdEdPUVNKanRyZHoxSEV6N3RBUkNDOU9zSi1BYVA4RjBveVJOQmNkWk5XMVl1alhQZE9lYnZCZ3BEWVIycERmdUk1R29xWnlldzZfTG5YTzVSSmt3MmhnaC1kUlRCeVR5YzJiY1NNX3AuR09semFTOWhGMzB6UFM0aXJCcmtGZyIsImlhdCI6MTc0OTgxNDQ4MiwiZXhwIjoxNzQ5ODE2MjgyfQ.VfWGmjkVexZ_I4JIqphdHBPpL91yEdlHOauWAINpbvo', 'Content-Length': '139'} 
+ body=b'{"manufacturer": "Dahua", "device_type": "NVR", "channels": "16", "name": "testtchayma", "site_id": "0EA66914-879C-FEF5-4BE5-7F7B0C9480DC"}' 
+ </msg>
+<msg time="2025-06-13T12:34:43.061654" level="INFO">POST Response : url=https://api.acdevftp.com/api/device 
+ status=200, reason=OK 
+ headers={'Date': 'Fri, 13 Jun 2025 11:34:43 GMT', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '1265', 'Connection': 'keep-alive', 'Server': 'Apache/2.4.62 (Amazon Linux) OpenSSL/3.0.8', 'Access-Control-Allow-Origin': '*', 'Content-Security-Policy': "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests", 'Cross-Origin-Opener-Policy': 'same-origin', 'Cross-Origin-Resource-Policy': 'same-origin', 'Origin-Agent-Cluster': '?1', 'Referrer-Policy': 'no-referrer', 'Strict-Transport-Security': 'max-age=15552000; includeSubDomains', 'X-Content-Type-Options': 'nosniff', 'X-DNS-Prefetch-Control': 'off', 'X-Download-Options': 'noopen', 'X-Frame-Options': 'SAMEORIGIN', 'X-Permitted-Cross-Domain-Policies': 'none', 'X-XSS-Protection': '0', 'ETag': 'W/"4f1-F7mTtdxrqdbPxh1CYhsi3Zqq3Jo"'} 
+ body={"http_code":200,"message":{"success":1},"data":{"success":true,"device_id":"0D9C9BAB-DB13-E4FE-397B-2AA8732793D7","dahua_sftp_user":"GMk3dfNSYm","dahua_sftp_pwd":"wq4NPnxNnP","dahua_sftp_url":"frmH3888.sftp.acdevftp.com"},"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbmNyeXB0ZWRQYXlsb2FkIjoiZXlKaGJHY2lPaUpTVTBFdFQwRkZVQ0lzSW1WdVl5STZJa0V5TlRaSFEwMGlMQ0pyYVdRaU9pSkhVSFowVEZOM1MyOUJNVEoxYVc5WGMzSXplV2hoZFdOSldHMTJSSFZVYldOVWNYazFRUzFFYlZaekluMC5CNDNHT2hsNjY2TGVxcERpRkhJSl81U2YzTzNLZzZZSlVPazNaM29Mdk9iZkV5dVJKbXlBSWhPMTRxV1luOGg4Y2JrTFJ4UlN6YnVGQUZuV0Y2TldTZ1RLZURpcEd3b2VodVpkSG9UaDdOUGZmS0tmY0l3LW5iU3Y1VE1uUG5XYlZxVjBhMmhaZDF0UWt2Q1lXYmlCQVE5NmNJbFpfZVJXRHN6SlJRZG5lS1gteEpON1FtZEd6RXRfcVBDX0pjb2M4cXg2MExnUEx5V3hDanB5bHlqeVEzd3VBMHhlMktMVDU3MFh6VTI1WkRCVERONHU0RE1IcnhNZkZTYzdpUGJheGFKYWR1YzZDdWpmNFU2cUNLU3d0OGVSOFAxaE1Zb1ZEajZvYktabWRPdkVtNmM3blpYMkNpQ2tZTUN2b004OU1NZlJVR2JiN2FUamdKSlhQM09xTHcuOThCWFhHNzE0YU9Ra2xlUi5uMnhwYnZhWGI4bU5WUUtydFJhcllCOEp5cjhuN3NaSF93eG9vMFN4QjVJRkozMk5JUW5fTy1Ha0VvMUdObHhzWW1lV2JMTGVDbHM0c05idTNiZDNnVU0wWEpSSFVzd1lvcjR6cEJ2dHVYdG5teDh4c0MwQ2RJTDlYc1p2RE12WFdxN1pnZTNFMEx3Y3h4NXVwS0ZEaTc0OFp1TXIua1pQVk5xZVRTanNSVzlFXy1EQzFqQSIsImlhdCI6MTc0OTgxNDQ4MywiZXhwIjoxNzQ5ODE2MjgzfQ.SMEFhogYQmIhvbJzfPhv6_hbdTygeQa_rRALUIH6R80"} 
+ </msg>
+<msg time="2025-06-13T12:34:43.061760" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<var>${response}</var>
+<arg>api_session</arg>
+<arg>${endpoint}</arg>
+<arg>headers=${headers}</arg>
+<arg>data=${payload_json}</arg>
+<doc>*DEPRECATED* Please use `POST On Session` instead.</doc>
+<status status="PASS" start="2025-06-13T12:34:42.759308" elapsed="0.302469"/>
+</kw>
+<return>
+<value>${response.status_code}</value>
+<value>${response.text}</value>
+<status status="PASS" start="2025-06-13T12:34:43.061831" elapsed="0.000036"/>
+</return>
+<msg time="2025-06-13T12:34:43.062546" level="INFO">${status} = 200</msg>
+<msg time="2025-06-13T12:34:43.062576" level="INFO">${body} = {"http_code":200,"message":{"success":1},"data":{"success":true,"device_id":"0D9C9BAB-DB13-E4FE-397B-2AA8732793D7","dahua_sftp_user":"GMk3dfNSYm","dahua_sftp_pwd":"wq4NPnxNnP","dahua_sftp_url":"frmH38...</msg>
+<var>${status}</var>
+<var>${body}</var>
+<arg>${API_URL_CREATE_DEVICE}</arg>
+<arg>${payload}</arg>
+<arg>${headers}</arg>
+<status status="PASS" start="2025-06-13T12:34:42.757305" elapsed="0.305286"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2025-06-13T12:34:43.063219" level="INFO">${body_dict} = {'http_code': 200, 'message': {'success': 1}, 'data': {'success': True, 'device_id': '0D9C9BAB-DB13-E4FE-397B-2AA8732793D7', 'dahua_sftp_user': 'GMk3dfNSYm', 'dahua_sftp_pwd': 'wq4NPnxNnP', 'dahua_sft...</msg>
+<var>${body_dict}</var>
+<arg>json.loads('''${body}''')</arg>
+<arg>json</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2025-06-13T12:34:43.062953" elapsed="0.000285"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2025-06-13T12:34:43.063713" level="INFO">${has_data} = True</msg>
+<var>${has_data}</var>
+<arg>'data' in ${body_dict}</arg>
+<arg>modules=builtins</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2025-06-13T12:34:43.063500" elapsed="0.000230"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2025-06-13T12:34:43.064460" level="INFO">${has_device_id} = True</msg>
+<var>${has_device_id}</var>
+<arg>${has_data} and 'device_id' in ${body_dict["data"]}</arg>
+<arg>modules=builtins</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2025-06-13T12:34:43.063998" elapsed="0.000479"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<kw name="Set Suite Variable" owner="BuiltIn">
+<msg time="2025-06-13T12:34:43.065354" level="INFO">${DEVICE_ID} = 0D9C9BAB-DB13-E4FE-397B-2AA8732793D7</msg>
+<arg>${DEVICE_ID}</arg>
+<arg>${body_dict["data"]["device_id"]}</arg>
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<status status="PASS" start="2025-06-13T12:34:43.064996" elapsed="0.000385"/>
+</kw>
+<arg>${status} == 200 and ${has_device_id}</arg>
+<arg>Set Suite Variable</arg>
+<arg>${DEVICE_ID}</arg>
+<arg>${body_dict["data"]["device_id"]}</arg>
+<arg>ELSE</arg>
+<arg>Fail</arg>
+<arg>❌ Device creation failed or missing ID - Réponse: ${body}</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="PASS" start="2025-06-13T12:34:43.064811" elapsed="0.000601"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>✅ Device créé avec ID: ${DEVICE_ID}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-06-13T12:34:43.065667" elapsed="0.000245"/>
+</kw>
+<doc>Create a new device using Bearer token and set DEVICE_ID as suite variable</doc>
+<status status="PASS" start="2025-06-13T12:34:42.755901" elapsed="0.310274"/>
+</test>
+<test id="s1-t4" name="Create Cloud Drive For Customer" line="133">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2025-06-13T12:34:43.067636" level="INFO">${payload} = {'apiKey': 'g^M2pTbn@oTiUb5qEI0eR7roeJx@OZGylSFpxaDc', 'customer_id': 'B428C830-83A3-1614-918E-75788BBAFA06', 'drive_type': 'AC_ST_100', 'device_id': '0D9C9BAB-DB13-E4FE-397B-2AA8732793D7', 'start_dat...</msg>
+<var>${payload}</var>
+<arg>apiKey=${API_KEY_INSTALLER}</arg>
+<arg>customer_id=${CUSTOMER_ID}</arg>
+<arg>drive_type=${DRIVE_TYPE}</arg>
+<arg>device_id=${DEVICE_ID}</arg>
+<arg>start_date=${START_DATE}</arg>
+<arg>end_date=${END_DATE}</arg>
+<arg>price=${PRICE}</arg>
+<arg>interval=${INTERVAL}</arg>
+<arg>currency=${CURRENCY}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2025-06-13T12:34:43.067329" elapsed="0.000326"/>
+</kw>
+<kw name="Send Post Request">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2025-06-13T12:34:43.068272" level="INFO">Creating Session using : alias=api_session, url=https://api.acdevftp.com/api/V1/createCloudDrive, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=True,                     debug=0 </msg>
+<arg>api_session</arg>
+<arg>${endpoint}</arg>
+<arg>verify=True</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2025-06-13T12:34:43.068175" elapsed="0.000182"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2025-06-13T12:34:43.068521" level="INFO">&amp;{headers} = { Content-Type=application/json }</msg>
+<var>&amp;{headers}</var>
+<arg>Content-Type=application/json</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2025-06-13T12:34:43.068422" elapsed="0.000122"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2025-06-13T12:34:43.068767" level="INFO">${payload_json} = {"apiKey": "g^M2pTbn@oTiUb5qEI0eR7roeJx@OZGylSFpxaDc", "customer_id": "B428C830-83A3-1614-918E-75788BBAFA06", "drive_type": "AC_ST_100", "device_id": "0D9C9BAB-DB13-E4FE-397B-2AA8732793D7", "start_dat...</msg>
+<var>${payload_json}</var>
+<arg>json.dumps(${payload})</arg>
+<arg>json</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2025-06-13T12:34:43.068599" elapsed="0.000226"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>\nSending POST request to ${endpoint}:\n${payload_json}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-06-13T12:34:43.068941" elapsed="0.000261"/>
+</kw>
+<kw name="Post Request" owner="RequestsLibrary">
+<msg time="2025-06-13T12:34:43.069351" level="WARN">Keyword 'RequestsLibrary.Post Request' is deprecated. Please use `POST On Session` instead.</msg>
+<msg time="2025-06-13T12:34:43.276534" level="INFO">POST Request : url=https://api.acdevftp.com/api/V1/createCloudDrive 
+ path_url=/api/V1/createCloudDrive 
+ headers={'User-Agent': 'python-requests/2.32.4', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Content-Length': '298'} 
+ body=b'{"apiKey": "g^M2pTbn@oTiUb5qEI0eR7roeJx@OZGylSFpxaDc", "customer_id": "B428C830-83A3-1614-918E-75788BBAFA06", "drive_type": "AC_ST_100", "device_id": "0D9C9BAB-DB13-E4FE-397B-2AA8732793D7", "start_date": "2024-10-01", "end_date": "2025-10-01", "price": "10", "interval": "month", "currency": "EUR"}' 
+ </msg>
+<msg time="2025-06-13T12:34:43.276606" level="INFO">POST Response : url=https://api.acdevftp.com/api/V1/createCloudDrive 
+ status=404, reason=Not Found 
+ headers={'Date': 'Fri, 13 Jun 2025 11:34:43 GMT', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '81', 'Connection': 'keep-alive', 'Server': 'Apache/2.4.62 (Amazon Linux) OpenSSL/3.0.8', 'Access-Control-Allow-Origin': '*', 'Content-Security-Policy': "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests", 'Cross-Origin-Opener-Policy': 'same-origin', 'Cross-Origin-Resource-Policy': 'same-origin', 'Origin-Agent-Cluster': '?1', 'Referrer-Policy': 'no-referrer', 'Strict-Transport-Security': 'max-age=15552000; includeSubDomains', 'X-Content-Type-Options': 'nosniff', 'X-DNS-Prefetch-Control': 'off', 'X-Download-Options': 'noopen', 'X-Frame-Options': 'SAMEORIGIN', 'X-Permitted-Cross-Domain-Policies': 'none', 'X-XSS-Protection': '0', 'ETag': 'W/"51-GEogyRf7U7yNtOtZnYNnWn96d5A"'} 
+ body={"http_code":404,"message":{"code":"404-0","error":"No such device for this ID"}} 
+ </msg>
+<msg time="2025-06-13T12:34:43.276702" level="INFO">${response} = &lt;Response [404]&gt;</msg>
+<var>${response}</var>
+<arg>api_session</arg>
+<arg>${endpoint}</arg>
+<arg>headers=${headers}</arg>
+<arg>data=${payload_json}</arg>
+<doc>*DEPRECATED* Please use `POST On Session` instead.</doc>
+<status status="PASS" start="2025-06-13T12:34:43.069324" elapsed="0.207396"/>
+</kw>
+<return>
+<value>${response.status_code}</value>
+<value>${response.text}</value>
+<status status="PASS" start="2025-06-13T12:34:43.276772" elapsed="0.000032"/>
+</return>
+<msg time="2025-06-13T12:34:43.277496" level="INFO">${status} = 404</msg>
+<msg time="2025-06-13T12:34:43.277523" level="INFO">${body} = {"http_code":404,"message":{"code":"404-0","error":"No such device for this ID"}}</msg>
+<var>${status}</var>
+<var>${body}</var>
+<arg>${API_URL_CREATE_CLOUD_DRIVE}</arg>
+<arg>${payload}</arg>
+<status status="PASS" start="2025-06-13T12:34:43.067983" elapsed="0.209554"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2025-06-13T12:34:43.278222" level="INFO">${body_dict} = {'http_code': 404, 'message': {'code': '404-0', 'error': 'No such device for this ID'}}</msg>
+<var>${body_dict}</var>
+<arg>json.loads('''${body}''')</arg>
+<arg>json</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2025-06-13T12:34:43.277977" elapsed="0.000263"/>
+</kw>
+<if>
+<branch type="IF" condition="${status} == 200">
+<if>
+<branch type="IF" condition="&quot;data&quot; in ${body_dict} and &quot;id&quot; in ${body_dict[&quot;data&quot;]}">
+<kw name="Set Variable" owner="BuiltIn">
+<var>${DRIVE_ID}</var>
+<arg>${body_dict["data"]["id"]}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" start="2025-06-13T12:34:43.278580" elapsed="0.000013"/>
+</kw>
+<kw name="Set Suite Variable" owner="BuiltIn">
+<arg>${DRIVE_ID}</arg>
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<status status="NOT RUN" start="2025-06-13T12:34:43.278661" elapsed="0.000011"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<var>${result}</var>
+<arg>PASSED</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" start="2025-06-13T12:34:43.278717" elapsed="0.000010"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>Drive ID créé avec succès: ${DRIVE_ID}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" start="2025-06-13T12:34:43.278772" elapsed="0.000010"/>
+</kw>
+<status status="NOT RUN" start="2025-06-13T12:34:43.278518" elapsed="0.000280"/>
+</branch>
+<branch type="ELSE">
+<kw name="Set Variable" owner="BuiltIn">
+<var>${error_message}</var>
+<arg>La réponse ne contient pas de données valides (data.id manquant)</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" start="2025-06-13T12:34:43.278855" elapsed="0.000009"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>WARN: ${error_message}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" start="2025-06-13T12:34:43.278913" elapsed="0.000010"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>Réponse complète: ${body_dict}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" start="2025-06-13T12:34:43.278963" elapsed="0.000009"/>
+</kw>
+<status status="NOT RUN" start="2025-06-13T12:34:43.278813" elapsed="0.000176"/>
+</branch>
+<status status="NOT RUN" start="2025-06-13T12:34:43.278510" elapsed="0.000491"/>
+</if>
+<status status="NOT RUN" start="2025-06-13T12:34:43.278427" elapsed="0.000590"/>
+</branch>
+<branch type="ELSE">
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2025-06-13T12:34:43.279201" level="INFO">${error_message} = Échec de la requête - Code: 404</msg>
+<var>${error_message}</var>
+<arg>Échec de la requête - Code: ${status}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-06-13T12:34:43.279071" elapsed="0.000148"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>WARN: ${error_message}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-06-13T12:34:43.279274" elapsed="0.000215"/>
+</kw>
+<status status="PASS" start="2025-06-13T12:34:43.279028" elapsed="0.000486"/>
+</branch>
+<status status="PASS" start="2025-06-13T12:34:43.278409" elapsed="0.001119"/>
+</if>
+<kw name="Get Current Date" owner="DateTime">
+<msg time="2025-06-13T12:34:43.279843" level="INFO">${datetime} = 2025-06-13 12:34:43</msg>
+<var>${datetime}</var>
+<arg>result_format=%Y-%m-%d %H:%M:%S</arg>
+<doc>Returns current local or UTC time with an optional increment.</doc>
+<status status="PASS" start="2025-06-13T12:34:43.279718" elapsed="0.000142"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2025-06-13T12:34:43.280119" level="INFO">${csv_message} = Create Cloud Drive For Customer</msg>
+<var>${csv_message}</var>
+<arg>Create Cloud Drive For Customer</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-06-13T12:34:43.280030" elapsed="0.000104"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<kw name="Set Variable" owner="BuiltIn">
+<arg>FAILED</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-06-13T12:34:43.280434" elapsed="0.000068"/>
+</kw>
+<msg time="2025-06-13T12:34:43.280662" level="INFO">${result} = FAILED</msg>
+<var>${result}</var>
+<arg>${status} == 200</arg>
+<arg>Set Variable</arg>
+<arg>PASSED</arg>
+<arg>ELSE</arg>
+<arg>Set Variable</arg>
+<arg>FAILED</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="PASS" start="2025-06-13T12:34:43.280256" elapsed="0.000422"/>
+</kw>
+<kw name="Append To Csv File">
+<kw name="Catenate" owner="BuiltIn">
+<msg time="2025-06-13T12:34:43.281706" level="INFO">${line} = 2025-06-13 12:34:43
+https://api.acdevftp.com/api/V1/createCloudDrive
+{'apiKey': 'g^M2pTbn@oTiUb5qEI0eR7roeJx@OZGylSFpxaDc', 'customer_id': 'B428C830-83A3-1614-918E-75788BBAFA06', 'drive_type': 'AC_ST_...</msg>
+<var>${line}</var>
+<arg>SEPARATOR=\n</arg>
+<arg>@{row}</arg>
+<doc>Catenates the given items together and returns the resulted string.</doc>
+<status status="PASS" start="2025-06-13T12:34:43.281537" elapsed="0.000192"/>
+</kw>
+<kw name="Append To File" owner="OperatingSystem">
+<msg time="2025-06-13T12:34:43.282493" level="INFO" html="true">Appended to file '&lt;a href="file://C:\Users\Daly\Downloads\testAutoTVC\testAutoTVC\camera_test_results_20250613_123442.csv"&gt;C:\Users\Daly\Downloads\testAutoTVC\testAutoTVC\camera_test_results_20250613_123442.csv&lt;/a&gt;'.</msg>
+<arg>${file}</arg>
+<arg>${line}\n</arg>
+<doc>Appends the given content to the specified file.</doc>
+<status status="PASS" start="2025-06-13T12:34:43.281800" elapsed="0.000749"/>
+</kw>
+<arg>${CSV_FILE}</arg>
+<arg>${datetime}</arg>
+<arg>${API_URL_CREATE_CLOUD_DRIVE}</arg>
+<arg>${payload}</arg>
+<arg>${result}</arg>
+<arg>${body}</arg>
+<status status="PASS" start="2025-06-13T12:34:43.281218" elapsed="0.001381"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2025-06-13T12:34:44.283632" level="INFO">Slept 1 second.</msg>
+<arg>1</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2025-06-13T12:34:43.282779" elapsed="1.000939"/>
+</kw>
+<doc>Create Cloud Drive For Customer</doc>
+<status status="PASS" start="2025-06-13T12:34:43.066984" elapsed="1.217112"/>
+</test>
+<test id="s1-t5" name="Update Cloud Drive For Customer" line="176">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2025-06-13T12:34:44.285800" level="INFO">${payload} = {'apiKey': 'g^M2pTbn@oTiUb5qEI0eR7roeJx@OZGylSFpxaDc', 'drive_id': '', 'drive_type': 'AC_ST_100', 'drive_action': 'UPGRADE', 'start_date': '2024-10-01', 'end_date': '2025-10-01', 'interval': 'year', '...</msg>
+<var>${payload}</var>
+<arg>apiKey=${API_KEY_INSTALLER}</arg>
+<arg>drive_id=${DRIVE_ID}</arg>
+<arg>drive_type=${DRIVE_TYPE}</arg>
+<arg>drive_action=${DRIVE_ACTION}</arg>
+<arg>start_date=${START_DATE}</arg>
+<arg>end_date=${END_DATE_UPDATE}</arg>
+<arg>interval=${INTERVAL_UPDATE}</arg>
+<arg>currency=${CURRENCY}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2025-06-13T12:34:44.285467" elapsed="0.000353"/>
+</kw>
+<kw name="Send Post Request">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2025-06-13T12:34:44.286473" level="INFO">Creating Session using : alias=api_session, url=https://api.acdevftp.com/api/V1/updateCloudDrive, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=True,                     debug=0 </msg>
+<arg>api_session</arg>
+<arg>${endpoint}</arg>
+<arg>verify=True</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2025-06-13T12:34:44.286371" elapsed="0.000203"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2025-06-13T12:34:44.286736" level="INFO">&amp;{headers} = { Content-Type=application/json }</msg>
+<var>&amp;{headers}</var>
+<arg>Content-Type=application/json</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2025-06-13T12:34:44.286638" elapsed="0.000113"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2025-06-13T12:34:44.287014" level="INFO">${payload_json} = {"apiKey": "g^M2pTbn@oTiUb5qEI0eR7roeJx@OZGylSFpxaDc", "drive_id": "", "drive_type": "AC_ST_100", "drive_action": "UPGRADE", "start_date": "2024-10-01", "end_date": "2025-10-01", "interval": "year", "...</msg>
+<var>${payload_json}</var>
+<arg>json.dumps(${payload})</arg>
+<arg>json</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2025-06-13T12:34:44.286812" elapsed="0.000218"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>\nSending POST request to ${endpoint}:\n${payload_json}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-06-13T12:34:44.287094" elapsed="0.000346"/>
+</kw>
+<kw name="Post Request" owner="RequestsLibrary">
+<msg time="2025-06-13T12:34:44.287538" level="WARN">Keyword 'RequestsLibrary.Post Request' is deprecated. Please use `POST On Session` instead.</msg>
+<msg time="2025-06-13T12:34:44.482394" level="INFO">POST Request : url=https://api.acdevftp.com/api/V1/updateCloudDrive 
+ path_url=/api/V1/updateCloudDrive 
+ headers={'User-Agent': 'python-requests/2.32.4', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Content-Length': '217'} 
+ body=b'{"apiKey": "g^M2pTbn@oTiUb5qEI0eR7roeJx@OZGylSFpxaDc", "drive_id": "", "drive_type": "AC_ST_100", "drive_action": "UPGRADE", "start_date": "2024-10-01", "end_date": "2025-10-01", "interval": "year", "currency": "EUR"}' 
+ </msg>
+<msg time="2025-06-13T12:34:44.482481" level="INFO">POST Response : url=https://api.acdevftp.com/api/V1/updateCloudDrive 
+ status=400, reason=Bad Request 
+ headers={'Date': 'Fri, 13 Jun 2025 11:34:44 GMT', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '76', 'Connection': 'keep-alive', 'Server': 'Apache/2.4.62 (Amazon Linux) OpenSSL/3.0.8', 'Access-Control-Allow-Origin': '*', 'Content-Security-Policy': "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests", 'Cross-Origin-Opener-Policy': 'same-origin', 'Cross-Origin-Resource-Policy': 'same-origin', 'Origin-Agent-Cluster': '?1', 'Referrer-Policy': 'no-referrer', 'Strict-Transport-Security': 'max-age=15552000; includeSubDomains', 'X-Content-Type-Options': 'nosniff', 'X-DNS-Prefetch-Control': 'off', 'X-Download-Options': 'noopen', 'X-Frame-Options': 'SAMEORIGIN', 'X-Permitted-Cross-Domain-Policies': 'none', 'X-XSS-Protection': '0', 'ETag': 'W/"4c-JWnhXzswFS5km00W8HuwjKM1ea4"'} 
+ body={"http_code":400,"message":{"code":"400-48","error":"Drive ID is required"}} 
+ </msg>
+<msg time="2025-06-13T12:34:44.482565" level="INFO">${response} = &lt;Response [400]&gt;</msg>
+<var>${response}</var>
+<arg>api_session</arg>
+<arg>${endpoint}</arg>
+<arg>headers=${headers}</arg>
+<arg>data=${payload_json}</arg>
+<doc>*DEPRECATED* Please use `POST On Session` instead.</doc>
+<status status="PASS" start="2025-06-13T12:34:44.287521" elapsed="0.195059"/>
+</kw>
+<return>
+<value>${response.status_code}</value>
+<value>${response.text}</value>
+<status status="PASS" start="2025-06-13T12:34:44.482637" elapsed="0.000031"/>
+</return>
+<msg time="2025-06-13T12:34:44.483403" level="INFO">${status} = 400</msg>
+<msg time="2025-06-13T12:34:44.483429" level="INFO">${body} = {"http_code":400,"message":{"code":"400-48","error":"Drive ID is required"}}</msg>
+<var>${status}</var>
+<var>${body}</var>
+<arg>${API_URL_UPDATE_CLOUD_DRIVE}</arg>
+<arg>${payload}</arg>
+<status status="PASS" start="2025-06-13T12:34:44.286171" elapsed="0.197270"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<kw name="Set Variable" owner="BuiltIn">
+<arg>FAILED</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-06-13T12:34:44.484074" elapsed="0.000082"/>
+</kw>
+<msg time="2025-06-13T12:34:44.484220" level="INFO">${result} = FAILED</msg>
+<var>${result}</var>
+<arg>${status} == 200</arg>
+<arg>Set Variable</arg>
+<arg>PASSED</arg>
+<arg>ELSE</arg>
+<arg>Set Variable</arg>
+<arg>FAILED</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="PASS" start="2025-06-13T12:34:44.483861" elapsed="0.000424"/>
+</kw>
+<kw name="Get Current Date" owner="DateTime">
+<msg time="2025-06-13T12:34:44.484651" level="INFO">${datetime} = 2025-06-13 12:34:44</msg>
+<var>${datetime}</var>
+<arg>result_format=%Y-%m-%d %H:%M:%S</arg>
+<doc>Returns current local or UTC time with an optional increment.</doc>
+<status status="PASS" start="2025-06-13T12:34:44.484519" elapsed="0.000149"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2025-06-13T12:34:44.485018" level="INFO">${csv_message} = Get List Of Installers</msg>
+<var>${csv_message}</var>
+<arg>Get List Of Installers</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-06-13T12:34:44.484935" elapsed="0.000099"/>
+</kw>
+<kw name="Append To Csv File">
+<kw name="Catenate" owner="BuiltIn">
+<msg time="2025-06-13T12:34:44.485656" level="INFO">${line} = 2025-06-13 12:34:44
+https://api.acdevftp.com/api/V1/updateCloudDrive
+{'apiKey': 'g^M2pTbn@oTiUb5qEI0eR7roeJx@OZGylSFpxaDc', 'drive_id': '', 'drive_type': 'AC_ST_100', 'drive_action': 'UPGRADE', 'start...</msg>
+<var>${line}</var>
+<arg>SEPARATOR=\n</arg>
+<arg>@{row}</arg>
+<doc>Catenates the given items together and returns the resulted string.</doc>
+<status status="PASS" start="2025-06-13T12:34:44.485543" elapsed="0.000133"/>
+</kw>
+<kw name="Append To File" owner="OperatingSystem">
+<msg time="2025-06-13T12:34:44.487221" level="INFO" html="true">Appended to file '&lt;a href="file://C:\Users\Daly\Downloads\testAutoTVC\testAutoTVC\camera_test_results_20250613_123442.csv"&gt;C:\Users\Daly\Downloads\testAutoTVC\testAutoTVC\camera_test_results_20250613_123442.csv&lt;/a&gt;'.</msg>
+<arg>${file}</arg>
+<arg>${line}\n</arg>
+<doc>Appends the given content to the specified file.</doc>
+<status status="PASS" start="2025-06-13T12:34:44.485735" elapsed="0.001606"/>
+</kw>
+<arg>${CSV_FILE}</arg>
+<arg>${datetime}</arg>
+<arg>${API_URL_UPDATE_CLOUD_DRIVE}</arg>
+<arg>${payload}</arg>
+<arg>${result}</arg>
+<arg>${body}</arg>
+<status status="PASS" start="2025-06-13T12:34:44.485301" elapsed="0.002161"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2025-06-13T12:34:45.488452" level="INFO">Slept 1 second.</msg>
+<arg>1</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2025-06-13T12:34:44.487825" elapsed="1.000719"/>
+</kw>
+<doc>Update Cloud Drive For Customer</doc>
+<status status="PASS" start="2025-06-13T12:34:44.285020" elapsed="1.203956"/>
+</test>
+<test id="s1-t6" name="Get Cloud Drive Informations" line="194">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2025-06-13T12:34:45.490382" level="INFO">${payload} = {'apiKey': 'g^M2pTbn@oTiUb5qEI0eR7roeJx@OZGylSFpxaDc', 'drive_id': ''}</msg>
+<var>${payload}</var>
+<arg>apiKey=${API_KEY_INSTALLER}</arg>
+<arg>drive_id=${DRIVE_ID}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2025-06-13T12:34:45.490190" elapsed="0.000210"/>
+</kw>
+<kw name="Send Post Request">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2025-06-13T12:34:45.491022" level="INFO">Creating Session using : alias=api_session, url=https://api.acdevftp.com/api/V1/getCloudDrive, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=True,                     debug=0 </msg>
+<arg>api_session</arg>
+<arg>${endpoint}</arg>
+<arg>verify=True</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2025-06-13T12:34:45.490917" elapsed="0.000195"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2025-06-13T12:34:45.491270" level="INFO">&amp;{headers} = { Content-Type=application/json }</msg>
+<var>&amp;{headers}</var>
+<arg>Content-Type=application/json</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2025-06-13T12:34:45.491175" elapsed="0.000120"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2025-06-13T12:34:45.491534" level="INFO">${payload_json} = {"apiKey": "g^M2pTbn@oTiUb5qEI0eR7roeJx@OZGylSFpxaDc", "drive_id": ""}</msg>
+<var>${payload_json}</var>
+<arg>json.dumps(${payload})</arg>
+<arg>json</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2025-06-13T12:34:45.491359" elapsed="0.000227"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>\nSending POST request to ${endpoint}:\n${payload_json}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-06-13T12:34:45.491670" elapsed="0.000310"/>
+</kw>
+<kw name="Post Request" owner="RequestsLibrary">
+<msg time="2025-06-13T12:34:45.492122" level="WARN">Keyword 'RequestsLibrary.Post Request' is deprecated. Please use `POST On Session` instead.</msg>
+<msg time="2025-06-13T12:34:45.670060" level="INFO">POST Request : url=https://api.acdevftp.com/api/V1/getCloudDrive 
+ path_url=/api/V1/getCloudDrive 
+ headers={'User-Agent': 'python-requests/2.32.4', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Content-Length': '70'} 
+ body=b'{"apiKey": "g^M2pTbn@oTiUb5qEI0eR7roeJx@OZGylSFpxaDc", "drive_id": ""}' 
+ </msg>
+<msg time="2025-06-13T12:34:45.670156" level="INFO">POST Response : url=https://api.acdevftp.com/api/V1/getCloudDrive 
+ status=400, reason=Bad Request 
+ headers={'Date': 'Fri, 13 Jun 2025 11:34:45 GMT', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '76', 'Connection': 'keep-alive', 'Server': 'Apache/2.4.62 (Amazon Linux) OpenSSL/3.0.8', 'Access-Control-Allow-Origin': '*', 'Content-Security-Policy': "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests", 'Cross-Origin-Opener-Policy': 'same-origin', 'Cross-Origin-Resource-Policy': 'same-origin', 'Origin-Agent-Cluster': '?1', 'Referrer-Policy': 'no-referrer', 'Strict-Transport-Security': 'max-age=15552000; includeSubDomains', 'X-Content-Type-Options': 'nosniff', 'X-DNS-Prefetch-Control': 'off', 'X-Download-Options': 'noopen', 'X-Frame-Options': 'SAMEORIGIN', 'X-Permitted-Cross-Domain-Policies': 'none', 'X-XSS-Protection': '0', 'ETag': 'W/"4c-JWnhXzswFS5km00W8HuwjKM1ea4"'} 
+ body={"http_code":400,"message":{"code":"400-48","error":"Drive ID is required"}} 
+ </msg>
+<msg time="2025-06-13T12:34:45.670255" level="INFO">${response} = &lt;Response [400]&gt;</msg>
+<var>${response}</var>
+<arg>api_session</arg>
+<arg>${endpoint}</arg>
+<arg>headers=${headers}</arg>
+<arg>data=${payload_json}</arg>
+<doc>*DEPRECATED* Please use `POST On Session` instead.</doc>
+<status status="PASS" start="2025-06-13T12:34:45.492104" elapsed="0.178167"/>
+</kw>
+<return>
+<value>${response.status_code}</value>
+<value>${response.text}</value>
+<status status="PASS" start="2025-06-13T12:34:45.670330" elapsed="0.000034"/>
+</return>
+<msg time="2025-06-13T12:34:45.671064" level="INFO">${status} = 400</msg>
+<msg time="2025-06-13T12:34:45.671089" level="INFO">${body} = {"http_code":400,"message":{"code":"400-48","error":"Drive ID is required"}}</msg>
+<var>${status}</var>
+<var>${body}</var>
+<arg>${API_URL_GET_CLOUD_DRIVE}</arg>
+<arg>${payload}</arg>
+<status status="PASS" start="2025-06-13T12:34:45.490718" elapsed="0.180384"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<kw name="Set Variable" owner="BuiltIn">
+<arg>FAILED</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-06-13T12:34:45.671725" elapsed="0.000065"/>
+</kw>
+<msg time="2025-06-13T12:34:45.671853" level="INFO">${result} = FAILED</msg>
+<var>${result}</var>
+<arg>${status} == 200</arg>
+<arg>Set Variable</arg>
+<arg>PASSED</arg>
+<arg>ELSE</arg>
+<arg>Set Variable</arg>
+<arg>FAILED</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="PASS" start="2025-06-13T12:34:45.671529" elapsed="0.000340"/>
+</kw>
+<kw name="Get Current Date" owner="DateTime">
+<msg time="2025-06-13T12:34:45.672334" level="INFO">${datetime} = 2025-06-13 12:34:45</msg>
+<var>${datetime}</var>
+<arg>result_format=%Y-%m-%d %H:%M:%S</arg>
+<doc>Returns current local or UTC time with an optional increment.</doc>
+<status status="PASS" start="2025-06-13T12:34:45.672194" elapsed="0.000157"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2025-06-13T12:34:45.672682" level="INFO">${csv_message} = Get List Of Installers</msg>
+<var>${csv_message}</var>
+<arg>Get List Of Installers</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-06-13T12:34:45.672591" elapsed="0.000107"/>
+</kw>
+<kw name="Append To Csv File">
+<kw name="Catenate" owner="BuiltIn">
+<msg time="2025-06-13T12:34:45.673302" level="INFO">${line} = 2025-06-13 12:34:45
+https://api.acdevftp.com/api/V1/getCloudDrive
+{'apiKey': 'g^M2pTbn@oTiUb5qEI0eR7roeJx@OZGylSFpxaDc', 'drive_id': ''}
+FAILED
+{"http_code":400,"message":{"code":"400-48","error":"Dri...</msg>
+<var>${line}</var>
+<arg>SEPARATOR=\n</arg>
+<arg>@{row}</arg>
+<doc>Catenates the given items together and returns the resulted string.</doc>
+<status status="PASS" start="2025-06-13T12:34:45.673198" elapsed="0.000127"/>
+</kw>
+<kw name="Append To File" owner="OperatingSystem">
+<msg time="2025-06-13T12:34:45.673930" level="INFO" html="true">Appended to file '&lt;a href="file://C:\Users\Daly\Downloads\testAutoTVC\testAutoTVC\camera_test_results_20250613_123442.csv"&gt;C:\Users\Daly\Downloads\testAutoTVC\testAutoTVC\camera_test_results_20250613_123442.csv&lt;/a&gt;'.</msg>
+<arg>${file}</arg>
+<arg>${line}\n</arg>
+<doc>Appends the given content to the specified file.</doc>
+<status status="PASS" start="2025-06-13T12:34:45.673381" elapsed="0.000600"/>
+</kw>
+<arg>${CSV_FILE}</arg>
+<arg>${datetime}</arg>
+<arg>${API_URL_GET_CLOUD_DRIVE}</arg>
+<arg>${payload}</arg>
+<arg>${result}</arg>
+<arg>${body}</arg>
+<status status="PASS" start="2025-06-13T12:34:45.672956" elapsed="0.001078"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2025-06-13T12:34:46.674683" level="INFO">Slept 1 second.</msg>
+<arg>1</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2025-06-13T12:34:45.674252" elapsed="1.000519"/>
+</kw>
+<doc>Get Cloud Drive Informations</doc>
+<status status="PASS" start="2025-06-13T12:34:45.489777" elapsed="1.185331"/>
+</test>
+<test id="s1-t7" name="Create AI Subscription" line="206">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2025-06-13T12:34:46.676694" level="INFO">${payload} = {'apiKey': 'g^M2pTbn@oTiUb5qEI0eR7roeJx@OZGylSFpxaDc', 'customer_id': 'B428C830-83A3-1614-918E-75788BBAFA06', 'ai_count': '1', 'start_date': '2024-10-01', 'end_date': '2025-10-01', 'interval': 'month'...</msg>
+<var>${payload}</var>
+<arg>apiKey=${API_KEY_INSTALLER}</arg>
+<arg>customer_id=${CUSTOMER_ID}</arg>
+<arg>ai_count=${AI_COUNT}</arg>
+<arg>start_date=${START_DATE}</arg>
+<arg>end_date=${END_DATE}</arg>
+<arg>interval=${INTERVAL}</arg>
+<arg>price=${PRICE}</arg>
+<arg>currency=${CURRENCY}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2025-06-13T12:34:46.676394" elapsed="0.000318"/>
+</kw>
+<kw name="Send Post Request">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2025-06-13T12:34:46.677285" level="INFO">Creating Session using : alias=api_session, url=https://api.acdevftp.com/api/V1/createAI, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=True,                     debug=0 </msg>
+<arg>api_session</arg>
+<arg>${endpoint}</arg>
+<arg>verify=True</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2025-06-13T12:34:46.677186" elapsed="0.000189"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2025-06-13T12:34:46.677537" level="INFO">&amp;{headers} = { Content-Type=application/json }</msg>
+<var>&amp;{headers}</var>
+<arg>Content-Type=application/json</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2025-06-13T12:34:46.677439" elapsed="0.000114"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2025-06-13T12:34:46.677812" level="INFO">${payload_json} = {"apiKey": "g^M2pTbn@oTiUb5qEI0eR7roeJx@OZGylSFpxaDc", "customer_id": "B428C830-83A3-1614-918E-75788BBAFA06", "ai_count": "1", "start_date": "2024-10-01", "end_date": "2025-10-01", "interval": "month"...</msg>
+<var>${payload_json}</var>
+<arg>json.dumps(${payload})</arg>
+<arg>json</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2025-06-13T12:34:46.677607" elapsed="0.000221"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>\nSending POST request to ${endpoint}:\n${payload_json}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-06-13T12:34:46.677893" elapsed="0.000658"/>
+</kw>
+<kw name="Post Request" owner="RequestsLibrary">
+<msg time="2025-06-13T12:34:46.678660" level="WARN">Keyword 'RequestsLibrary.Post Request' is deprecated. Please use `POST On Session` instead.</msg>
+<msg time="2025-06-13T12:34:46.870425" level="INFO">POST Request : url=https://api.acdevftp.com/api/V1/createAI 
+ path_url=/api/V1/createAI 
+ headers={'User-Agent': 'python-requests/2.32.4', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Content-Length': '235'} 
+ body=b'{"apiKey": "g^M2pTbn@oTiUb5qEI0eR7roeJx@OZGylSFpxaDc", "customer_id": "B428C830-83A3-1614-918E-75788BBAFA06", "ai_count": "1", "start_date": "2024-10-01", "end_date": "2025-10-01", "interval": "month", "price": "10", "currency": "EUR"}' 
+ </msg>
+<msg time="2025-06-13T12:34:46.870493" level="INFO">POST Response : url=https://api.acdevftp.com/api/V1/createAI 
+ status=406, reason=Not Acceptable 
+ headers={'Date': 'Fri, 13 Jun 2025 11:34:47 GMT', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '97', 'Connection': 'keep-alive', 'Server': 'Apache/2.4.62 (Amazon Linux) OpenSSL/3.0.8', 'Access-Control-Allow-Origin': '*', 'Content-Security-Policy': "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests", 'Cross-Origin-Opener-Policy': 'same-origin', 'Cross-Origin-Resource-Policy': 'same-origin', 'Origin-Agent-Cluster': '?1', 'Referrer-Policy': 'no-referrer', 'Strict-Transport-Security': 'max-age=15552000; includeSubDomains', 'X-Content-Type-Options': 'nosniff', 'X-DNS-Prefetch-Control': 'off', 'X-Download-Options': 'noopen', 'X-Frame-Options': 'SAMEORIGIN', 'X-Permitted-Cross-Domain-Policies': 'none', 'X-XSS-Protection': '0', 'ETag': 'W/"61-esdAmaePk+YXN+TyKAS5TBSVmLo"'} 
+ body={"http_code":406,"message":{"code":"406-14","error":"This customer has already AI Subscription"}} 
+ </msg>
+<msg time="2025-06-13T12:34:46.870583" level="INFO">${response} = &lt;Response [406]&gt;</msg>
+<var>${response}</var>
+<arg>api_session</arg>
+<arg>${endpoint}</arg>
+<arg>headers=${headers}</arg>
+<arg>data=${payload_json}</arg>
+<doc>*DEPRECATED* Please use `POST On Session` instead.</doc>
+<status status="PASS" start="2025-06-13T12:34:46.678644" elapsed="0.191955"/>
+</kw>
+<return>
+<value>${response.status_code}</value>
+<value>${response.text}</value>
+<status status="PASS" start="2025-06-13T12:34:46.870653" elapsed="0.000050"/>
+</return>
+<msg time="2025-06-13T12:34:46.871459" level="INFO">${status} = 406</msg>
+<msg time="2025-06-13T12:34:46.871489" level="INFO">${body} = {"http_code":406,"message":{"code":"406-14","error":"This customer has already AI Subscription"}}</msg>
+<var>${status}</var>
+<var>${body}</var>
+<arg>${API_URL_CREATE_AI}</arg>
+<arg>${payload}</arg>
+<status status="PASS" start="2025-06-13T12:34:46.677001" elapsed="0.194565"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2025-06-13T12:34:46.872193" level="INFO">${body_dict} = {'http_code': 406, 'message': {'code': '406-14', 'error': 'This customer has already AI Subscription'}}</msg>
+<var>${body_dict}</var>
+<arg>json.loads('''${body}''')</arg>
+<arg>json</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2025-06-13T12:34:46.871934" elapsed="0.000279"/>
+</kw>
+<if>
+<branch type="IF" condition="${status} == 200">
+<if>
+<branch type="IF" condition="&quot;data&quot; in ${body_dict} and &quot;id&quot; in ${body_dict[&quot;data&quot;]}">
+<kw name="Set Variable" owner="BuiltIn">
+<var>${AI_ID}</var>
+<arg>${body_dict["data"]["id"]}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" start="2025-06-13T12:34:46.872719" elapsed="0.000014"/>
+</kw>
+<kw name="Set Suite Variable" owner="BuiltIn">
+<arg>${AI_ID}</arg>
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<status status="NOT RUN" start="2025-06-13T12:34:46.872818" elapsed="0.000011"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<var>${result}</var>
+<arg>PASSED</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" start="2025-06-13T12:34:46.872881" elapsed="0.000011"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>Drive ID créé avec succès: ${AI_ID}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" start="2025-06-13T12:34:46.872951" elapsed="0.000012"/>
+</kw>
+<status status="NOT RUN" start="2025-06-13T12:34:46.872646" elapsed="0.000337"/>
+</branch>
+<branch type="ELSE">
+<kw name="Set Variable" owner="BuiltIn">
+<var>${error_message}</var>
+<arg>La réponse ne contient pas de données valides (data.id manquant)</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" start="2025-06-13T12:34:46.873041" elapsed="0.000009"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>WARN: ${error_message}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" start="2025-06-13T12:34:46.873094" elapsed="0.000008"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>Réponse complète: ${body_dict}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" start="2025-06-13T12:34:46.873143" elapsed="0.000009"/>
+</kw>
+<status status="NOT RUN" start="2025-06-13T12:34:46.872999" elapsed="0.000170"/>
+</branch>
+<status status="NOT RUN" start="2025-06-13T12:34:46.872636" elapsed="0.000545"/>
+</if>
+<status status="NOT RUN" start="2025-06-13T12:34:46.872506" elapsed="0.000694"/>
+</branch>
+<branch type="ELSE">
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2025-06-13T12:34:46.873348" level="INFO">${error_message} = Échec de la requête - Code: 406</msg>
+<var>${error_message}</var>
+<arg>Échec de la requête - Code: ${status}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-06-13T12:34:46.873252" elapsed="0.000111"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>WARN: ${error_message}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-06-13T12:34:46.873412" elapsed="0.000401"/>
+</kw>
+<status status="PASS" start="2025-06-13T12:34:46.873210" elapsed="0.000646"/>
+</branch>
+<status status="PASS" start="2025-06-13T12:34:46.872470" elapsed="0.001404"/>
+</if>
+<kw name="Run Keyword If" owner="BuiltIn">
+<kw name="Set Variable" owner="BuiltIn">
+<arg>FAILED</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-06-13T12:34:46.874481" elapsed="0.000070"/>
+</kw>
+<msg time="2025-06-13T12:34:46.874605" level="INFO">${result} = FAILED</msg>
+<var>${result}</var>
+<arg>${status} == 200</arg>
+<arg>Set Variable</arg>
+<arg>PASSED</arg>
+<arg>ELSE</arg>
+<arg>Set Variable</arg>
+<arg>FAILED</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="PASS" start="2025-06-13T12:34:46.874202" elapsed="0.000419"/>
+</kw>
+<kw name="Get Current Date" owner="DateTime">
+<msg time="2025-06-13T12:34:46.875010" level="INFO">${datetime} = 2025-06-13 12:34:46</msg>
+<var>${datetime}</var>
+<arg>result_format=%Y-%m-%d %H:%M:%S</arg>
+<doc>Returns current local or UTC time with an optional increment.</doc>
+<status status="PASS" start="2025-06-13T12:34:46.874875" elapsed="0.000152"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2025-06-13T12:34:46.875366" level="INFO">${csv_message} = Create AI Subscription</msg>
+<var>${csv_message}</var>
+<arg>Create AI Subscription</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-06-13T12:34:46.875273" elapsed="0.000109"/>
+</kw>
+<kw name="Append To Csv File">
+<kw name="Catenate" owner="BuiltIn">
+<msg time="2025-06-13T12:34:46.876055" level="INFO">${line} = 2025-06-13 12:34:46
+https://api.acdevftp.com/api/V1/createAI
+{'apiKey': 'g^M2pTbn@oTiUb5qEI0eR7roeJx@OZGylSFpxaDc', 'customer_id': 'B428C830-83A3-1614-918E-75788BBAFA06', 'ai_count': '1', 'start_date'...</msg>
+<var>${line}</var>
+<arg>SEPARATOR=\n</arg>
+<arg>@{row}</arg>
+<doc>Catenates the given items together and returns the resulted string.</doc>
+<status status="PASS" start="2025-06-13T12:34:46.875949" elapsed="0.000130"/>
+</kw>
+<kw name="Append To File" owner="OperatingSystem">
+<msg time="2025-06-13T12:34:46.876636" level="INFO" html="true">Appended to file '&lt;a href="file://C:\Users\Daly\Downloads\testAutoTVC\testAutoTVC\camera_test_results_20250613_123442.csv"&gt;C:\Users\Daly\Downloads\testAutoTVC\testAutoTVC\camera_test_results_20250613_123442.csv&lt;/a&gt;'.</msg>
+<arg>${file}</arg>
+<arg>${line}\n</arg>
+<doc>Appends the given content to the specified file.</doc>
+<status status="PASS" start="2025-06-13T12:34:46.876136" elapsed="0.000541"/>
+</kw>
+<arg>${CSV_FILE}</arg>
+<arg>${datetime}</arg>
+<arg>${API_URL_CREATE_AI}</arg>
+<arg>${payload}</arg>
+<arg>${result}</arg>
+<arg>${body}</arg>
+<status status="PASS" start="2025-06-13T12:34:46.875707" elapsed="0.001019"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2025-06-13T12:34:47.877685" level="INFO">Slept 1 second.</msg>
+<arg>1</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2025-06-13T12:34:46.877005" elapsed="1.000869"/>
+</kw>
+<doc>Create AI Subscription</doc>
+<status status="PASS" start="2025-06-13T12:34:46.675961" elapsed="1.202279"/>
+</test>
+<test id="s1-t8" name="Update AI Subscription" line="243">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2025-06-13T12:34:47.879370" level="INFO">${payload} = {'apiKey': 'g^M2pTbn@oTiUb5qEI0eR7roeJx@OZGylSFpxaDc', 'AI_id': '', 'ai_action': 'UPGRADE', 'ai_count': '1', 'start_date': '2024-10-01', 'end_date': '2025-10-01', 'interval': 'year'}</msg>
+<var>${payload}</var>
+<arg>apiKey=${API_KEY_INSTALLER}</arg>
+<arg>AI_id=${AI_ID}</arg>
+<arg>ai_action=${AI_ACTION}</arg>
+<arg>ai_count=${AI_COUNT}</arg>
+<arg>start_date=${START_DATE}</arg>
+<arg>end_date=${END_DATE_UPDATE}</arg>
+<arg>interval=${INTERVAL_UPDATE}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2025-06-13T12:34:47.878998" elapsed="0.000395"/>
+</kw>
+<kw name="Send Post Request">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2025-06-13T12:34:47.880085" level="INFO">Creating Session using : alias=api_session, url=https://api.acdevftp.com/api/V1/updateAI, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=True,                     debug=0 </msg>
+<arg>api_session</arg>
+<arg>${endpoint}</arg>
+<arg>verify=True</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2025-06-13T12:34:47.879981" elapsed="0.000200"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2025-06-13T12:34:47.880411" level="INFO">&amp;{headers} = { Content-Type=application/json }</msg>
+<var>&amp;{headers}</var>
+<arg>Content-Type=application/json</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2025-06-13T12:34:47.880305" elapsed="0.000122"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2025-06-13T12:34:47.880673" level="INFO">${payload_json} = {"apiKey": "g^M2pTbn@oTiUb5qEI0eR7roeJx@OZGylSFpxaDc", "AI_id": "", "ai_action": "UPGRADE", "ai_count": "1", "start_date": "2024-10-01", "end_date": "2025-10-01", "interval": "year"}</msg>
+<var>${payload_json}</var>
+<arg>json.dumps(${payload})</arg>
+<arg>json</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2025-06-13T12:34:47.880483" elapsed="0.000206"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>\nSending POST request to ${endpoint}:\n${payload_json}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-06-13T12:34:47.880755" elapsed="0.000258"/>
+</kw>
+<kw name="Post Request" owner="RequestsLibrary">
+<msg time="2025-06-13T12:34:47.881108" level="WARN">Keyword 'RequestsLibrary.Post Request' is deprecated. Please use `POST On Session` instead.</msg>
+<msg time="2025-06-13T12:34:48.066094" level="INFO">POST Request : url=https://api.acdevftp.com/api/V1/updateAI 
+ path_url=/api/V1/updateAI 
+ headers={'User-Agent': 'python-requests/2.32.4', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Content-Length': '182'} 
+ body=b'{"apiKey": "g^M2pTbn@oTiUb5qEI0eR7roeJx@OZGylSFpxaDc", "AI_id": "", "ai_action": "UPGRADE", "ai_count": "1", "start_date": "2024-10-01", "end_date": "2025-10-01", "interval": "year"}' 
+ </msg>
+<msg time="2025-06-13T12:34:48.066171" level="INFO">POST Response : url=https://api.acdevftp.com/api/V1/updateAI 
+ status=400, reason=Bad Request 
+ headers={'Date': 'Fri, 13 Jun 2025 11:34:48 GMT', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '73', 'Connection': 'keep-alive', 'Server': 'Apache/2.4.62 (Amazon Linux) OpenSSL/3.0.8', 'Access-Control-Allow-Origin': '*', 'Content-Security-Policy': "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests", 'Cross-Origin-Opener-Policy': 'same-origin', 'Cross-Origin-Resource-Policy': 'same-origin', 'Origin-Agent-Cluster': '?1', 'Referrer-Policy': 'no-referrer', 'Strict-Transport-Security': 'max-age=15552000; includeSubDomains', 'X-Content-Type-Options': 'nosniff', 'X-DNS-Prefetch-Control': 'off', 'X-Download-Options': 'noopen', 'X-Frame-Options': 'SAMEORIGIN', 'X-Permitted-Cross-Domain-Policies': 'none', 'X-XSS-Protection': '0', 'ETag': 'W/"49-ojV1mRdlirh+QnfR8Rcu/eVLB0o"'} 
+ body={"http_code":400,"message":{"code":"400-60","error":"AI_id is required"}} 
+ </msg>
+<msg time="2025-06-13T12:34:48.066257" level="INFO">${response} = &lt;Response [400]&gt;</msg>
+<var>${response}</var>
+<arg>api_session</arg>
+<arg>${endpoint}</arg>
+<arg>headers=${headers}</arg>
+<arg>data=${payload_json}</arg>
+<doc>*DEPRECATED* Please use `POST On Session` instead.</doc>
+<status status="PASS" start="2025-06-13T12:34:47.881092" elapsed="0.185182"/>
+</kw>
+<return>
+<value>${response.status_code}</value>
+<value>${response.text}</value>
+<status status="PASS" start="2025-06-13T12:34:48.066327" elapsed="0.000030"/>
+</return>
+<msg time="2025-06-13T12:34:48.067014" level="INFO">${status} = 400</msg>
+<msg time="2025-06-13T12:34:48.067039" level="INFO">${body} = {"http_code":400,"message":{"code":"400-60","error":"AI_id is required"}}</msg>
+<var>${status}</var>
+<var>${body}</var>
+<arg>${API_URL_UPDATE_AI}</arg>
+<arg>${payload}</arg>
+<status status="PASS" start="2025-06-13T12:34:47.879771" elapsed="0.187282"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<kw name="Set Variable" owner="BuiltIn">
+<arg>FAILED</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-06-13T12:34:48.067637" elapsed="0.000059"/>
+</kw>
+<msg time="2025-06-13T12:34:48.067746" level="INFO">${result} = FAILED</msg>
+<var>${result}</var>
+<arg>${status} == 200</arg>
+<arg>Set Variable</arg>
+<arg>PASSED</arg>
+<arg>ELSE</arg>
+<arg>Set Variable</arg>
+<arg>FAILED</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="PASS" start="2025-06-13T12:34:48.067433" elapsed="0.000328"/>
+</kw>
+<kw name="Get Current Date" owner="DateTime">
+<msg time="2025-06-13T12:34:48.068091" level="INFO">${datetime} = 2025-06-13 12:34:48</msg>
+<var>${datetime}</var>
+<arg>result_format=%Y-%m-%d %H:%M:%S</arg>
+<doc>Returns current local or UTC time with an optional increment.</doc>
+<status status="PASS" start="2025-06-13T12:34:48.067957" elapsed="0.000162"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2025-06-13T12:34:48.068440" level="INFO">${csv_message} = Get List Of Installers</msg>
+<var>${csv_message}</var>
+<arg>Get List Of Installers</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-06-13T12:34:48.068343" elapsed="0.000115"/>
+</kw>
+<kw name="Append To Csv File">
+<kw name="Catenate" owner="BuiltIn">
+<msg time="2025-06-13T12:34:48.069095" level="INFO">${line} = 2025-06-13 12:34:48
+https://api.acdevftp.com/api/V1/updateAI
+{'apiKey': 'g^M2pTbn@oTiUb5qEI0eR7roeJx@OZGylSFpxaDc', 'AI_id': '', 'ai_action': 'UPGRADE', 'ai_count': '1', 'start_date': '2024-10-01', 'e...</msg>
+<var>${line}</var>
+<arg>SEPARATOR=\n</arg>
+<arg>@{row}</arg>
+<doc>Catenates the given items together and returns the resulted string.</doc>
+<status status="PASS" start="2025-06-13T12:34:48.068988" elapsed="0.000124"/>
+</kw>
+<kw name="Append To File" owner="OperatingSystem">
+<msg time="2025-06-13T12:34:48.069918" level="INFO" html="true">Appended to file '&lt;a href="file://C:\Users\Daly\Downloads\testAutoTVC\testAutoTVC\camera_test_results_20250613_123442.csv"&gt;C:\Users\Daly\Downloads\testAutoTVC\testAutoTVC\camera_test_results_20250613_123442.csv&lt;/a&gt;'.</msg>
+<arg>${file}</arg>
+<arg>${line}\n</arg>
+<doc>Appends the given content to the specified file.</doc>
+<status status="PASS" start="2025-06-13T12:34:48.069168" elapsed="0.000824"/>
+</kw>
+<arg>${CSV_FILE}</arg>
+<arg>${datetime}</arg>
+<arg>${API_URL_UPDATE_AI}</arg>
+<arg>${payload}</arg>
+<arg>${result}</arg>
+<arg>${body}</arg>
+<status status="PASS" start="2025-06-13T12:34:48.068743" elapsed="0.001342"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2025-06-13T12:34:49.071007" level="INFO">Slept 1 second.</msg>
+<arg>1</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2025-06-13T12:34:48.070365" elapsed="1.000729"/>
+</kw>
+<doc>Update AI Subscription</doc>
+<status status="PASS" start="2025-06-13T12:34:47.878651" elapsed="1.192803"/>
+</test>
+<test id="s1-t9" name="Get Ai Subscription Informations" line="260">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2025-06-13T12:34:49.072587" level="INFO">${payload} = {'apiKey': 'g^M2pTbn@oTiUb5qEI0eR7roeJx@OZGylSFpxaDc', 'AI_id': ''}</msg>
+<var>${payload}</var>
+<arg>apiKey=${API_KEY_INSTALLER}</arg>
+<arg>AI_id=${AI_ID}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2025-06-13T12:34:49.072367" elapsed="0.000242"/>
+</kw>
+<kw name="Send Post Request">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2025-06-13T12:34:49.073272" level="INFO">Creating Session using : alias=api_session, url=https://api.acdevftp.com/api/V1/getAI, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=True,                     debug=0 </msg>
+<arg>api_session</arg>
+<arg>${endpoint}</arg>
+<arg>verify=True</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2025-06-13T12:34:49.073158" elapsed="0.000266"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2025-06-13T12:34:49.073607" level="INFO">&amp;{headers} = { Content-Type=application/json }</msg>
+<var>&amp;{headers}</var>
+<arg>Content-Type=application/json</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2025-06-13T12:34:49.073502" elapsed="0.000121"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2025-06-13T12:34:49.073858" level="INFO">${payload_json} = {"apiKey": "g^M2pTbn@oTiUb5qEI0eR7roeJx@OZGylSFpxaDc", "AI_id": ""}</msg>
+<var>${payload_json}</var>
+<arg>json.dumps(${payload})</arg>
+<arg>json</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2025-06-13T12:34:49.073680" elapsed="0.000195"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>\nSending POST request to ${endpoint}:\n${payload_json}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-06-13T12:34:49.073938" elapsed="0.000383"/>
+</kw>
+<kw name="Post Request" owner="RequestsLibrary">
+<msg time="2025-06-13T12:34:49.074466" level="WARN">Keyword 'RequestsLibrary.Post Request' is deprecated. Please use `POST On Session` instead.</msg>
+<msg time="2025-06-13T12:34:49.256887" level="INFO">POST Request : url=https://api.acdevftp.com/api/V1/getAI 
+ path_url=/api/V1/getAI 
+ headers={'User-Agent': 'python-requests/2.32.4', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Content-Length': '67'} 
+ body=b'{"apiKey": "g^M2pTbn@oTiUb5qEI0eR7roeJx@OZGylSFpxaDc", "AI_id": ""}' 
+ </msg>
+<msg time="2025-06-13T12:34:49.256958" level="INFO">POST Response : url=https://api.acdevftp.com/api/V1/getAI 
+ status=400, reason=Bad Request 
+ headers={'Date': 'Fri, 13 Jun 2025 11:34:49 GMT', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '73', 'Connection': 'keep-alive', 'Server': 'Apache/2.4.62 (Amazon Linux) OpenSSL/3.0.8', 'Access-Control-Allow-Origin': '*', 'Content-Security-Policy': "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests", 'Cross-Origin-Opener-Policy': 'same-origin', 'Cross-Origin-Resource-Policy': 'same-origin', 'Origin-Agent-Cluster': '?1', 'Referrer-Policy': 'no-referrer', 'Strict-Transport-Security': 'max-age=15552000; includeSubDomains', 'X-Content-Type-Options': 'nosniff', 'X-DNS-Prefetch-Control': 'off', 'X-Download-Options': 'noopen', 'X-Frame-Options': 'SAMEORIGIN', 'X-Permitted-Cross-Domain-Policies': 'none', 'X-XSS-Protection': '0', 'ETag': 'W/"49-ojV1mRdlirh+QnfR8Rcu/eVLB0o"'} 
+ body={"http_code":400,"message":{"code":"400-60","error":"AI_id is required"}} 
+ </msg>
+<msg time="2025-06-13T12:34:49.257041" level="INFO">${response} = &lt;Response [400]&gt;</msg>
+<var>${response}</var>
+<arg>api_session</arg>
+<arg>${endpoint}</arg>
+<arg>headers=${headers}</arg>
+<arg>data=${payload_json}</arg>
+<doc>*DEPRECATED* Please use `POST On Session` instead.</doc>
+<status status="PASS" start="2025-06-13T12:34:49.074440" elapsed="0.182627"/>
+</kw>
+<return>
+<value>${response.status_code}</value>
+<value>${response.text}</value>
+<status status="PASS" start="2025-06-13T12:34:49.257119" elapsed="0.000036"/>
+</return>
+<msg time="2025-06-13T12:34:49.257837" level="INFO">${status} = 400</msg>
+<msg time="2025-06-13T12:34:49.257862" level="INFO">${body} = {"http_code":400,"message":{"code":"400-60","error":"AI_id is required"}}</msg>
+<var>${status}</var>
+<var>${body}</var>
+<arg>${API_URL_GET_AI}</arg>
+<arg>${payload}</arg>
+<status status="PASS" start="2025-06-13T12:34:49.072948" elapsed="0.184927"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<kw name="Set Variable" owner="BuiltIn">
+<arg>FAILED</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-06-13T12:34:49.258523" elapsed="0.000059"/>
+</kw>
+<msg time="2025-06-13T12:34:49.258637" level="INFO">${result} = FAILED</msg>
+<var>${result}</var>
+<arg>${status} == 200</arg>
+<arg>Set Variable</arg>
+<arg>PASSED</arg>
+<arg>ELSE</arg>
+<arg>Set Variable</arg>
+<arg>FAILED</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="PASS" start="2025-06-13T12:34:49.258319" elapsed="0.000334"/>
+</kw>
+<kw name="Get Current Date" owner="DateTime">
+<msg time="2025-06-13T12:34:49.259038" level="INFO">${datetime} = 2025-06-13 12:34:49</msg>
+<var>${datetime}</var>
+<arg>result_format=%Y-%m-%d %H:%M:%S</arg>
+<doc>Returns current local or UTC time with an optional increment.</doc>
+<status status="PASS" start="2025-06-13T12:34:49.258896" elapsed="0.000159"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2025-06-13T12:34:49.259388" level="INFO">${csv_message} = Get List Of Installers</msg>
+<var>${csv_message}</var>
+<arg>Get List Of Installers</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-06-13T12:34:49.259296" elapsed="0.000111"/>
+</kw>
+<kw name="Append To Csv File">
+<kw name="Catenate" owner="BuiltIn">
+<msg time="2025-06-13T12:34:49.259981" level="INFO">${line} = 2025-06-13 12:34:49
+https://api.acdevftp.com/api/V1/getAI
+{'apiKey': 'g^M2pTbn@oTiUb5qEI0eR7roeJx@OZGylSFpxaDc', 'AI_id': ''}
+FAILED
+{"http_code":400,"message":{"code":"400-60","error":"AI_id is requi...</msg>
+<var>${line}</var>
+<arg>SEPARATOR=\n</arg>
+<arg>@{row}</arg>
+<doc>Catenates the given items together and returns the resulted string.</doc>
+<status status="PASS" start="2025-06-13T12:34:49.259871" elapsed="0.000128"/>
+</kw>
+<kw name="Append To File" owner="OperatingSystem">
+<msg time="2025-06-13T12:34:49.260570" level="INFO" html="true">Appended to file '&lt;a href="file://C:\Users\Daly\Downloads\testAutoTVC\testAutoTVC\camera_test_results_20250613_123442.csv"&gt;C:\Users\Daly\Downloads\testAutoTVC\testAutoTVC\camera_test_results_20250613_123442.csv&lt;/a&gt;'.</msg>
+<arg>${file}</arg>
+<arg>${line}\n</arg>
+<doc>Appends the given content to the specified file.</doc>
+<status status="PASS" start="2025-06-13T12:34:49.260055" elapsed="0.000584"/>
+</kw>
+<arg>${CSV_FILE}</arg>
+<arg>${datetime}</arg>
+<arg>${API_URL_GET_AI}</arg>
+<arg>${payload}</arg>
+<arg>${result}</arg>
+<arg>${body}</arg>
+<status status="PASS" start="2025-06-13T12:34:49.259629" elapsed="0.001050"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2025-06-13T12:34:50.261433" level="INFO">Slept 1 second.</msg>
+<arg>1</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2025-06-13T12:34:49.260914" elapsed="1.000622"/>
+</kw>
+<doc>Get Ai Subscription Informations</doc>
+<status status="PASS" start="2025-06-13T12:34:49.071991" elapsed="1.189914"/>
+</test>
+<test id="s1-t10" name="Get Device List" line="272">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2025-06-13T12:34:50.263112" level="INFO">${payload} = {'apiKey': 'g^M2pTbn@oTiUb5qEI0eR7roeJx@OZGylSFpxaDc', 'customer_id': 'B428C830-83A3-1614-918E-75788BBAFA06'}</msg>
+<var>${payload}</var>
+<arg>apiKey=${API_KEY_INSTALLER}</arg>
+<arg>customer_id=${CUSTOMER_ID}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2025-06-13T12:34:50.262893" elapsed="0.000243"/>
+</kw>
+<kw name="Send Post Request">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2025-06-13T12:34:50.263803" level="INFO">Creating Session using : alias=api_session, url=https://api.acdevftp.com/api/V1/getDeviceList, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=True,                     debug=0 </msg>
+<arg>api_session</arg>
+<arg>${endpoint}</arg>
+<arg>verify=True</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2025-06-13T12:34:50.263669" elapsed="0.000240"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2025-06-13T12:34:50.264223" level="INFO">&amp;{headers} = { Content-Type=application/json }</msg>
+<var>&amp;{headers}</var>
+<arg>Content-Type=application/json</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2025-06-13T12:34:50.264071" elapsed="0.000169"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2025-06-13T12:34:50.264561" level="INFO">${payload_json} = {"apiKey": "g^M2pTbn@oTiUb5qEI0eR7roeJx@OZGylSFpxaDc", "customer_id": "B428C830-83A3-1614-918E-75788BBAFA06"}</msg>
+<var>${payload_json}</var>
+<arg>json.dumps(${payload})</arg>
+<arg>json</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2025-06-13T12:34:50.264327" elapsed="0.000262"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>\nSending POST request to ${endpoint}:\n${payload_json}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-06-13T12:34:50.264658" elapsed="0.000421"/>
+</kw>
+<kw name="Post Request" owner="RequestsLibrary">
+<msg time="2025-06-13T12:34:50.265199" level="WARN">Keyword 'RequestsLibrary.Post Request' is deprecated. Please use `POST On Session` instead.</msg>
+<msg time="2025-06-13T12:34:50.459691" level="INFO">POST Request : url=https://api.acdevftp.com/api/V1/getDeviceList 
+ path_url=/api/V1/getDeviceList 
+ headers={'User-Agent': 'python-requests/2.32.4', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Content-Length': '109'} 
+ body=b'{"apiKey": "g^M2pTbn@oTiUb5qEI0eR7roeJx@OZGylSFpxaDc", "customer_id": "B428C830-83A3-1614-918E-75788BBAFA06"}' 
+ </msg>
+<msg time="2025-06-13T12:34:50.459765" level="INFO">POST Response : url=https://api.acdevftp.com/api/V1/getDeviceList 
+ status=200, reason=OK 
+ headers={'Date': 'Fri, 13 Jun 2025 11:34:50 GMT', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '555', 'Connection': 'keep-alive', 'Server': 'Apache/2.4.62 (Amazon Linux) OpenSSL/3.0.8', 'Access-Control-Allow-Origin': '*', 'Content-Security-Policy': "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests", 'Cross-Origin-Opener-Policy': 'same-origin', 'Cross-Origin-Resource-Policy': 'same-origin', 'Origin-Agent-Cluster': '?1', 'Referrer-Policy': 'no-referrer', 'Strict-Transport-Security': 'max-age=15552000; includeSubDomains', 'X-Content-Type-Options': 'nosniff', 'X-DNS-Prefetch-Control': 'off', 'X-Download-Options': 'noopen', 'X-Frame-Options': 'SAMEORIGIN', 'X-Permitted-Cross-Domain-Policies': 'none', 'X-XSS-Protection': '0', 'ETag': 'W/"22b-W78OwkBjuNFLdiaM42TpEfas8CU"'} 
+ body={"http_code":200,"message":{"success":1},"data":[{"device_id":"1D4FAED6-8B4D-93EA-BD66-BBB0E6E9E70E","name":"autotest","type":"Recorder","manufacturer":"Dahua","max_channels":16,"drive_id":"25B00CAF-5436-BFDE-1E96-626B3ECC7AE4"},{"device_id":"20DF1D98-BE17-AE7D-9094-9FEECBCF5541","name":"test char","type":"Recorder","manufacturer":"Dahua","max_channels":16,"drive_id":"EF9990FA-91EB-9C18-7278-F6ACC7D5B4CD"},{"device_id":"A3E8E245-4453-051B-7986-9587FEA18ECB","name":"testau","type":"Recorder","manufacturer":"Dahua","max_channels":16,"drive_id":null}]} 
+ </msg>
+<msg time="2025-06-13T12:34:50.459859" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<var>${response}</var>
+<arg>api_session</arg>
+<arg>${endpoint}</arg>
+<arg>headers=${headers}</arg>
+<arg>data=${payload_json}</arg>
+<doc>*DEPRECATED* Please use `POST On Session` instead.</doc>
+<status status="PASS" start="2025-06-13T12:34:50.265182" elapsed="0.194694"/>
+</kw>
+<return>
+<value>${response.status_code}</value>
+<value>${response.text}</value>
+<status status="PASS" start="2025-06-13T12:34:50.459930" elapsed="0.000031"/>
+</return>
+<msg time="2025-06-13T12:34:50.460694" level="INFO">${status} = 200</msg>
+<msg time="2025-06-13T12:34:50.460723" level="INFO">${body} = {"http_code":200,"message":{"success":1},"data":[{"device_id":"1D4FAED6-8B4D-93EA-BD66-BBB0E6E9E70E","name":"autotest","type":"Recorder","manufacturer":"Dahua","max_channels":16,"drive_id":"25B00CAF-5...</msg>
+<var>${status}</var>
+<var>${body}</var>
+<arg>${API_URL_GET_DEVICE_LIST}</arg>
+<arg>${payload}</arg>
+<status status="PASS" start="2025-06-13T12:34:50.263400" elapsed="0.197338"/>
+</kw>
+<kw name="Get Current Date" owner="DateTime">
+<msg time="2025-06-13T12:34:50.461308" level="INFO">${datetime} = 2025-06-13 12:34:50</msg>
+<var>${datetime}</var>
+<arg>result_format=%Y-%m-%d %H:%M:%S</arg>
+<doc>Returns current local or UTC time with an optional increment.</doc>
+<status status="PASS" start="2025-06-13T12:34:50.461029" elapsed="0.000301"/>
+</kw>
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2025-06-13T12:34:50.461681" level="INFO">${csv_message} = Get List Of Installers</msg>
+<var>${csv_message}</var>
+<arg>Get List Of Installers</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-06-13T12:34:50.461579" elapsed="0.000120"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<kw name="Set Variable" owner="BuiltIn">
+<arg>PASSED</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-06-13T12:34:50.462115" elapsed="0.000076"/>
+</kw>
+<msg time="2025-06-13T12:34:50.462245" level="INFO">${result} = PASSED</msg>
+<var>${result}</var>
+<arg>${status} == 200</arg>
+<arg>Set Variable</arg>
+<arg>PASSED</arg>
+<arg>ELSE</arg>
+<arg>Set Variable</arg>
+<arg>FAILED</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="PASS" start="2025-06-13T12:34:50.461949" elapsed="0.000314"/>
+</kw>
+<kw name="Append To Csv File">
+<kw name="Catenate" owner="BuiltIn">
+<msg time="2025-06-13T12:34:50.462936" level="INFO">${line} = 2025-06-13 12:34:50
+https://api.acdevftp.com/api/V1/getDeviceList
+{'apiKey': 'g^M2pTbn@oTiUb5qEI0eR7roeJx@OZGylSFpxaDc', 'customer_id': 'B428C830-83A3-1614-918E-75788BBAFA06'}
+PASSED
+{"http_code":200,...</msg>
+<var>${line}</var>
+<arg>SEPARATOR=\n</arg>
+<arg>@{row}</arg>
+<doc>Catenates the given items together and returns the resulted string.</doc>
+<status status="PASS" start="2025-06-13T12:34:50.462824" elapsed="0.000130"/>
+</kw>
+<kw name="Append To File" owner="OperatingSystem">
+<msg time="2025-06-13T12:34:50.463594" level="INFO" html="true">Appended to file '&lt;a href="file://C:\Users\Daly\Downloads\testAutoTVC\testAutoTVC\camera_test_results_20250613_123442.csv"&gt;C:\Users\Daly\Downloads\testAutoTVC\testAutoTVC\camera_test_results_20250613_123442.csv&lt;/a&gt;'.</msg>
+<arg>${file}</arg>
+<arg>${line}\n</arg>
+<doc>Appends the given content to the specified file.</doc>
+<status status="PASS" start="2025-06-13T12:34:50.463010" elapsed="0.000627"/>
+</kw>
+<arg>${CSV_FILE}</arg>
+<arg>${datetime}</arg>
+<arg>${API_URL_GET_DEVICE_LIST}</arg>
+<arg>${payload}</arg>
+<arg>${result}</arg>
+<arg>${body}</arg>
+<status status="PASS" start="2025-06-13T12:34:50.462555" elapsed="0.001157"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2025-06-13T12:34:51.464188" level="INFO">Slept 1 second.</msg>
+<arg>1</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2025-06-13T12:34:50.463891" elapsed="1.000387"/>
+</kw>
+<doc>Get Device List</doc>
+<status status="PASS" start="2025-06-13T12:34:50.262489" elapsed="1.202246"/>
+</test>
+<test id="s1-t11" name="Get Url Connect As Installer" line="285">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2025-06-13T12:34:51.466175" level="INFO">${payload} = {'apiKey': 'g^M2pTbn@oTiUb5qEI0eR7roeJx@OZGylSFpxaDc', 'id': 'AB0374F9-5BB9-4505-A276-2247132269E7'}</msg>
+<var>${payload}</var>
+<arg>apiKey=${API_KEY_INSTALLER}</arg>
+<arg>id=${INSTALLER_ID}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2025-06-13T12:34:51.465974" elapsed="0.000271"/>
+</kw>
+<kw name="Send Post Request">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2025-06-13T12:34:51.466936" level="INFO">Creating Session using : alias=api_session, url=https://api.acdevftp.com/api/V1/GetUrlConnectAsInstaller, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=True,                     debug=0 </msg>
+<arg>api_session</arg>
+<arg>${endpoint}</arg>
+<arg>verify=True</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2025-06-13T12:34:51.466827" elapsed="0.000209"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2025-06-13T12:34:51.467245" level="INFO">&amp;{headers} = { Content-Type=application/json }</msg>
+<var>&amp;{headers}</var>
+<arg>Content-Type=application/json</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2025-06-13T12:34:51.467105" elapsed="0.000158"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2025-06-13T12:34:51.467569" level="INFO">${payload_json} = {"apiKey": "g^M2pTbn@oTiUb5qEI0eR7roeJx@OZGylSFpxaDc", "id": "AB0374F9-5BB9-4505-A276-2247132269E7"}</msg>
+<var>${payload_json}</var>
+<arg>json.dumps(${payload})</arg>
+<arg>json</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2025-06-13T12:34:51.467335" elapsed="0.000252"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>\nSending POST request to ${endpoint}:\n${payload_json}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-06-13T12:34:51.467654" elapsed="0.000248"/>
+</kw>
+<kw name="Post Request" owner="RequestsLibrary">
+<msg time="2025-06-13T12:34:51.468036" level="WARN">Keyword 'RequestsLibrary.Post Request' is deprecated. Please use `POST On Session` instead.</msg>
+<msg time="2025-06-13T12:34:51.655756" level="INFO">POST Request : url=https://api.acdevftp.com/api/V1/GetUrlConnectAsInstaller 
+ path_url=/api/V1/GetUrlConnectAsInstaller 
+ headers={'User-Agent': 'python-requests/2.32.4', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Content-Length': '100'} 
+ body=b'{"apiKey": "g^M2pTbn@oTiUb5qEI0eR7roeJx@OZGylSFpxaDc", "id": "AB0374F9-5BB9-4505-A276-2247132269E7"}' 
+ </msg>
+<msg time="2025-06-13T12:34:51.655831" level="INFO">POST Response : url=https://api.acdevftp.com/api/V1/GetUrlConnectAsInstaller 
+ status=404, reason=Not Found 
+ headers={'Date': 'Fri, 13 Jun 2025 11:34:51 GMT', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '86', 'Connection': 'keep-alive', 'Server': 'Apache/2.4.62 (Amazon Linux) OpenSSL/3.0.8', 'Access-Control-Allow-Origin': '*', 'Content-Security-Policy': "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests", 'Cross-Origin-Opener-Policy': 'same-origin', 'Cross-Origin-Resource-Policy': 'same-origin', 'Origin-Agent-Cluster': '?1', 'Referrer-Policy': 'no-referrer', 'Strict-Transport-Security': 'max-age=15552000; includeSubDomains', 'X-Content-Type-Options': 'nosniff', 'X-DNS-Prefetch-Control': 'off', 'X-Download-Options': 'noopen', 'X-Frame-Options': 'SAMEORIGIN', 'X-Permitted-Cross-Domain-Policies': 'none', 'X-XSS-Protection': '0', 'ETag': 'W/"56-bs0mWedDqg7y4v8gdXJyXC1SYEQ"'} 
+ body={"http_code":404,"message":{"code":"404-11","error":"No such installer with this ID"}} 
+ </msg>
+<msg time="2025-06-13T12:34:51.655939" level="INFO">${response} = &lt;Response [404]&gt;</msg>
+<var>${response}</var>
+<arg>api_session</arg>
+<arg>${endpoint}</arg>
+<arg>headers=${headers}</arg>
+<arg>data=${payload_json}</arg>
+<doc>*DEPRECATED* Please use `POST On Session` instead.</doc>
+<status status="PASS" start="2025-06-13T12:34:51.468015" elapsed="0.187944"/>
+</kw>
+<return>
+<value>${response.status_code}</value>
+<value>${response.text}</value>
+<status status="PASS" start="2025-06-13T12:34:51.656020" elapsed="0.000037"/>
+</return>
+<msg time="2025-06-13T12:34:51.656822" level="INFO">${status} = 404</msg>
+<msg time="2025-06-13T12:34:51.656851" level="INFO">${body} = {"http_code":404,"message":{"code":"404-11","error":"No such installer with this ID"}}</msg>
+<var>${status}</var>
+<var>${body}</var>
+<arg>${API_URL_GET_URL_CONNECT_AS_INSTALLER}</arg>
+<arg>${payload}</arg>
+<status status="PASS" start="2025-06-13T12:34:51.466616" elapsed="0.190250"/>
+</kw>
+<kw name="Get Current Date" owner="DateTime">
+<msg time="2025-06-13T12:34:51.657440" level="INFO">${datetime} = 2025-06-13 12:34:51</msg>
+<var>${datetime}</var>
+<arg>result_format=%Y-%m-%d %H:%M:%S</arg>
+<doc>Returns current local or UTC time with an optional increment.</doc>
+<status status="PASS" start="2025-06-13T12:34:51.657250" elapsed="0.000229"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<kw name="Set Variable" owner="BuiltIn">
+<arg>FAILED</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2025-06-13T12:34:51.657867" elapsed="0.000054"/>
+</kw>
+<msg time="2025-06-13T12:34:51.657971" level="INFO">${result} = FAILED</msg>
+<var>${result}</var>
+<arg>${status} == 200</arg>
+<arg>Set Variable</arg>
+<arg>PASSED</arg>
+<arg>ELSE</arg>
+<arg>Set Variable</arg>
+<arg>FAILED</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="PASS" start="2025-06-13T12:34:51.657705" elapsed="0.000280"/>
+</kw>
+<kw name="Append To Csv File">
+<kw name="Catenate" owner="BuiltIn">
+<msg time="2025-06-13T12:34:51.658641" level="INFO">${line} = 2025-06-13 12:34:51
+https://api.acdevftp.com/api/V1/GetUrlConnectAsInstaller
+{'apiKey': 'g^M2pTbn@oTiUb5qEI0eR7roeJx@OZGylSFpxaDc', 'id': 'AB0374F9-5BB9-4505-A276-2247132269E7'}
+FAILED
+{"http_code":40...</msg>
+<var>${line}</var>
+<arg>SEPARATOR=\n</arg>
+<arg>@{row}</arg>
+<doc>Catenates the given items together and returns the resulted string.</doc>
+<status status="PASS" start="2025-06-13T12:34:51.658539" elapsed="0.000119"/>
+</kw>
+<kw name="Append To File" owner="OperatingSystem">
+<msg time="2025-06-13T12:34:51.659242" level="INFO" html="true">Appended to file '&lt;a href="file://C:\Users\Daly\Downloads\testAutoTVC\testAutoTVC\camera_test_results_20250613_123442.csv"&gt;C:\Users\Daly\Downloads\testAutoTVC\testAutoTVC\camera_test_results_20250613_123442.csv&lt;/a&gt;'.</msg>
+<arg>${file}</arg>
+<arg>${line}\n</arg>
+<doc>Appends the given content to the specified file.</doc>
+<status status="PASS" start="2025-06-13T12:34:51.658718" elapsed="0.000566"/>
+</kw>
+<arg>${CSV_FILE}</arg>
+<arg>${datetime}</arg>
+<arg>${API_URL_GET_URL_CONNECT_AS_INSTALLER}</arg>
+<arg>${payload}</arg>
+<arg>${result}</arg>
+<arg>${body}</arg>
+<status status="PASS" start="2025-06-13T12:34:51.658288" elapsed="0.001048"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2025-06-13T12:34:52.659871" level="INFO">Slept 1 second.</msg>
+<arg>1</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2025-06-13T12:34:51.659481" elapsed="1.000544"/>
+</kw>
+<doc>Get Url Connect As Installer</doc>
+<status status="PASS" start="2025-06-13T12:34:51.465602" elapsed="1.194690"/>
+</test>
+<status status="PASS" start="2025-06-13T12:34:42.103859" elapsed="10.557089"/>
+</suite>
+<statistics>
+<total>
+<stat pass="11" fail="0" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat name="API TVC" id="s1" pass="11" fail="0" skip="0">API TVC</stat>
+</suite>
+</statistics>
+<errors>
+<msg time="2025-06-13T12:34:42.415997" level="ERROR">Error in file 'C:\Users\Daly\Downloads\testAutoTVC\testAutoTVC\API_TVC.robot' on line 8: Importing library 'JSONLibrary' failed: ModuleNotFoundError: No module named 'JSONLibrary'
+Traceback (most recent call last):
+  None
+PYTHONPATH:
+  C:\Users\Daly\AppData\Local\Programs\Python\Python313\Scripts\robot.exe
+  C:\Users\Daly\AppData\Local\Programs\Python\Python313\python313.zip
+  C:\Users\Daly\AppData\Local\Programs\Python\Python313\DLLs
+  C:\Users\Daly\AppData\Local\Programs\Python\Python313\Lib
+  C:\Users\Daly\AppData\Local\Programs\Python\Python313
+  C:\Users\Daly\AppData\Local\Programs\Python\Python313\Lib\site-packages</msg>
+<msg time="2025-06-13T12:34:42.424272" level="WARN">Keyword 'RequestsLibrary.Post Request' is deprecated. Please use `POST On Session` instead.</msg>
+<msg time="2025-06-13T12:34:42.759335" level="WARN">Keyword 'RequestsLibrary.Post Request' is deprecated. Please use `POST On Session` instead.</msg>
+<msg time="2025-06-13T12:34:43.069351" level="WARN">Keyword 'RequestsLibrary.Post Request' is deprecated. Please use `POST On Session` instead.</msg>
+<msg time="2025-06-13T12:34:44.287538" level="WARN">Keyword 'RequestsLibrary.Post Request' is deprecated. Please use `POST On Session` instead.</msg>
+<msg time="2025-06-13T12:34:45.492122" level="WARN">Keyword 'RequestsLibrary.Post Request' is deprecated. Please use `POST On Session` instead.</msg>
+<msg time="2025-06-13T12:34:46.678660" level="WARN">Keyword 'RequestsLibrary.Post Request' is deprecated. Please use `POST On Session` instead.</msg>
+<msg time="2025-06-13T12:34:47.881108" level="WARN">Keyword 'RequestsLibrary.Post Request' is deprecated. Please use `POST On Session` instead.</msg>
+<msg time="2025-06-13T12:34:49.074466" level="WARN">Keyword 'RequestsLibrary.Post Request' is deprecated. Please use `POST On Session` instead.</msg>
+<msg time="2025-06-13T12:34:50.265199" level="WARN">Keyword 'RequestsLibrary.Post Request' is deprecated. Please use `POST On Session` instead.</msg>
+<msg time="2025-06-13T12:34:51.468036" level="WARN">Keyword 'RequestsLibrary.Post Request' is deprecated. Please use `POST On Session` instead.</msg>
+</errors>
+</robot>

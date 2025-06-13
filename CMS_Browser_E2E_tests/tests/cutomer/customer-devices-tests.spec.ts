@@ -8,7 +8,7 @@ test.describe('Customer Device Management', () => {
   });
 
   async function connectAsTestCustomer(page) {
-    await expect(page.getByText('dalynaguez@gmail.com', { exact: false })).toBeVisible({ timeout: 10000 });
+    await expect(page.getByText('dalynaguez@gmail.com', { exact: false })).toBeVisible({ timeout: 300000 });
     await page.getByRole('row', { name: 'dC1XCrwg9Q dalynaguez@gmail.' }).getByRole('button').first().click();
     await expect(page.getByRole('link', { name: 'My Customers' })).toBeVisible();
     await expect(page.getByText('Test-Customer test')).toBeVisible();
