@@ -25,7 +25,7 @@ test.describe('Installer Customers menu', () => {
     await page.getByRole('textbox', { name: 'Last Name' }).fill(lastName);
     await page.getByRole('textbox', { name: 'Email' }).fill(email);
     await page.getByRole('button', { name: 'Submit' }).click();
-    await expect(page.getByText(`${firstName} ${lastName}`)).toBeVisible();
+  await expect(page.getByText('customer created successfully')).toBeVisible();
   });
 
   test('should edit a customer', async ({ page }) => {

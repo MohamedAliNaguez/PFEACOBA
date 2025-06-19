@@ -327,8 +327,15 @@ export const METHOD_MAP = /** @type {const} */ ({
     POST: {command: 'setRotation', payloadParams: {required: ['x', 'y', 'z']}},
   },
   '/session/:sessionId/location': {
-    GET: {command: 'getGeoLocation'},
-    POST: {command: 'setGeoLocation', payloadParams: {required: ['location']}},
+    GET: {
+      command: 'getGeoLocation',
+      deprecated: true,
+    },
+    POST: {
+      command: 'setGeoLocation',
+      payloadParams: {required: ['location']},
+      deprecated: true,
+    },
   },
   '/session/:sessionId/orientation': {
     GET: {command: 'getOrientation'},
@@ -471,7 +478,7 @@ export const METHOD_MAP = /** @type {const} */ ({
   // #endregion
 
   //
-  // 3rd party vendor/protcol support
+  // 3rd party vendor/protocol support
   //
   // #region Selenium/Chromium browsers
   '/session/:sessionId/se/log': {
