@@ -1,4 +1,0 @@
-{
-  "using": "accessibility id",
-  "value": "We suggest rotating your password often to ensure your security."
-}
