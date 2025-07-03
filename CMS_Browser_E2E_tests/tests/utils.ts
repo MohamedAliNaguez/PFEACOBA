@@ -4,7 +4,6 @@ dotenv.config();
 
 export const TEST_EMAIL = process.env.TEST_EMAIL!;
 export const TEST_EMAILD = process.env.TEST_EMAILD!;
-
 export const TEST_PASSWORD = process.env.TEST_PASSWORD!;
 export async function login(page: Page, email: string, password: string) {
   await page.goto('https://dashboard.cam2drive-bt.com/login');
