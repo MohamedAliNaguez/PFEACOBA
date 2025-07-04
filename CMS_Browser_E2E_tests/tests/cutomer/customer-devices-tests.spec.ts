@@ -9,8 +9,12 @@ test.describe('Customer Device Management', () => {
 
   async function connectAsTestCustomer(page) {
     await expect(page.getByText('dalynaguez@gmail.com', { exact: false })).toBeVisible({ timeout: 300000 });
-    await page.getByRole('row', { name: 'MQkosJcTjl dalynaguez@gmail.' }).getByRole('button').first().click();
-    await expect(page.getByRole('link', { name: 'My Customers' })).toBeVisible();
+await page.getByRole('row')
+  .filter({ hasText: 'dalynaguez@gmail.com' })
+  .getByRole('button')
+  .first()
+  .click();
+      await expect(page.getByRole('link', { name: 'My Customers' })).toBeVisible();
       await page.getByRole('textbox', { name: 'Email' }).click();
   await page.getByRole('textbox', { name: 'Email' }).fill('tes');
     await expect(page.getByText('Test-Customer test')).toBeVisible();

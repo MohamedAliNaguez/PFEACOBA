@@ -10,8 +10,12 @@ test.describe('Customer Sites managemment', () => {
   async function connectAsTestCustomer(page) {
     await expect(page.getByText('distributor')).toBeVisible();
     await expect(page.getByText('dalynaguez@gmail.com')).toBeVisible();
-    await page.getByRole('row', { name: 'MQkosJcTjl dalynaguez@gmail.' }).getByRole('button').first().click();
-    await expect(page.getByRole('link', { name: 'My Customers' })).toBeVisible();
+await page.getByRole('row')
+  .filter({ hasText: 'dalynaguez@gmail.com' })
+  .getByRole('button')
+  .first()
+  .click();
+      await expect(page.getByRole('link', { name: 'My Customers' })).toBeVisible();
       await page.getByRole('textbox', { name: 'Email' }).click();
   await page.getByRole('textbox', { name: 'Email' }).fill('tes');
     await expect(page.getByText('Test-Customer test')).toBeVisible();
