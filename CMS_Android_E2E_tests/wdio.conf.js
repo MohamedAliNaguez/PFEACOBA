@@ -130,13 +130,19 @@ exports.config = {
     // The only one supported by default is 'dot'
     // see also: https://webdriver.io/docs/dot-reporter
 reporters: [
-    'spec',
-    ['allure', {
-        outputDir: 'reports/allure-results',
-        disableWebdriverStepsReporting: true,
-        disableWebdriverScreenshotsReporting: false,
-    }]
-],
+        'spec',
+        ['allure', {
+            outputDir: 'allure-results',
+            disableWebdriverStepsReporting: true,
+            disableWebdriverScreenshotsReporting: false,
+            useCucumberStepReporter: false
+        }]
+    ],
+     afterTest: function(test, context, { error, result, duration, passed, retries }) {
+        if (error) {
+            browser.takeScreenshot();
+        }
+    },
 
     // Options to be passed to Mocha.
     // See the full list at http://mochajs.org/
