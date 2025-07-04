@@ -29,21 +29,21 @@ test.describe('Distrobutor Installers menu tests', () => {
     await expect(page.getByText('Actions')).toBeVisible();
   });
 
-  // test('Add new installer', async ({ page }) => {
-  //   await page.getByRole('button', { name: 'Add Installer' }).click();
-  //   await expect(page.getByRole('heading', { name: 'Add new installer' })).toBeVisible();
+  test('Add new installer', async ({ page }) => {
+    await page.getByRole('button', { name: 'Add Installer' }).click();
+    await expect(page.getByRole('heading', { name: 'Add new installer' })).toBeVisible();
 
-  //   const randomString = Math.random().toString(36).substring(2, 7);
-  //   const company = `Company-${randomString}`;
-  //   const email = `user${randomString}@test.com`;
-  //   const phone = Math.floor(10000000 + Math.random() * 90000000).toString();
+    const randomString = Math.random().toString(36).substring(2, 7);
+    const company = `Company-${randomString}`;
+    const email = `user${randomString}@test.com`;
+    const phone = Math.floor(10000000 + Math.random() * 90000000).toString();
 
-  //   await page.getByRole('textbox', { name: 'Company' }).fill(company);
-  //   await page.getByRole('textbox', { name: 'Email' }).fill(email);
-  //   await page.getByRole('textbox', { name: 'Phone Number' }).fill(phone);
-  //   await page.getByRole('button', { name: 'Submit' }).click();
-  //   await expect(page.getByText('installer created successfully')).toBeVisible();
-  // });
+    await page.getByRole('textbox', { name: 'Company' }).fill(company);
+    await page.getByRole('textbox', { name: 'Email' }).fill(email);
+    await page.getByRole('textbox', { name: 'Phone Number' }).fill(phone);
+    await page.getByRole('button', { name: 'Submit' }).click();
+    await expect(page.getByText('installer created successfully')).toBeVisible();
+  });
 
   test('edit installer', async ({ page }) => {
     await expect(page.getByText('Installers', { exact: true })).toBeVisible();

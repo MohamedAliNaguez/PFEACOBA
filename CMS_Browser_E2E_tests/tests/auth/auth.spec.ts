@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { login, TEST_EMAIL , TEST_PASSWORD } from '../utils';
 
-test('Login and save session', async ({ page }) => {
+test('Login and save session as cus', async ({ page }) => {
   await page.goto('https://dashboard.cam2drive-bt.com/login');
 
   await login(page, TEST_EMAIL, TEST_PASSWORD);
