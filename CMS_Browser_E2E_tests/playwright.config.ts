@@ -6,16 +6,25 @@ export default defineConfig({
   workers: 1,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
+  timeout: 50000,
   reporter: [
     ['line'],
     ['allure-playwright', { 
       outputFolder: 'allure-results',
       detail: true,
-      suiteTitle: true
+      suiteTitle: true,
+      outputDir: 'test-results'
+
     }]
   ],
+   expect: {
+    timeout: 30000 
+  },
   use: {
-    trace: 'on-first-retry',
+    trace: 'on',
+    screenshot: 'only-on-failure',
+    video: 'retain-on-failure',
+    
   },
   projects: [
     {

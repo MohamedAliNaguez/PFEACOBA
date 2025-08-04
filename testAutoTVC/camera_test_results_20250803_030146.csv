@@ -1,0 +1,67 @@
+Date/Heure,Configuration,Valeur testée,Résultat,body
+2025-08-03 03:01:47
+https://api.acdevftp.com/api/V1/updateCloudDrive
+{'apiKey': 'g^M2pTbn@oTiUb5qEI0eR7roeJx@OZGylSFpxaDc', 'drive_id': '', 'drive_type': 'AC_ST_100', 'drive_action': 'UPGRADE', 'start_date': '2024-10-01', 'end_date': '2025-10-01', 'interval': 'year', 'currency': 'EUR'}
+FAILED
+<html>
+<head><title>503 Service Temporarily Unavailable</title></head>
+<body>
+<center><h1>503 Service Temporarily Unavailable</h1></center>
+</body>
+</html>
+
+2025-08-03 03:01:49
+https://api.acdevftp.com/api/V1/getCloudDrive
+{'apiKey': 'g^M2pTbn@oTiUb5qEI0eR7roeJx@OZGylSFpxaDc', 'drive_id': ''}
+FAILED
+<html>
+<head><title>503 Service Temporarily Unavailable</title></head>
+<body>
+<center><h1>503 Service Temporarily Unavailable</h1></center>
+</body>
+</html>
+
+2025-08-03 03:01:50
+https://api.acdevftp.com/api/V1/updateAI
+{'apiKey': 'g^M2pTbn@oTiUb5qEI0eR7roeJx@OZGylSFpxaDc', 'AI_id': '', 'ai_action': 'UPGRADE', 'ai_count': '1', 'start_date': '2024-10-01', 'end_date': '2025-10-01', 'interval': 'year'}
+FAILED
+<html>
+<head><title>503 Service Temporarily Unavailable</title></head>
+<body>
+<center><h1>503 Service Temporarily Unavailable</h1></center>
+</body>
+</html>
+
+2025-08-03 03:01:52
+https://api.acdevftp.com/api/V1/getAI
+{'apiKey': 'g^M2pTbn@oTiUb5qEI0eR7roeJx@OZGylSFpxaDc', 'AI_id': ''}
+FAILED
+<html>
+<head><title>503 Service Temporarily Unavailable</title></head>
+<body>
+<center><h1>503 Service Temporarily Unavailable</h1></center>
+</body>
+</html>
+
+2025-08-03 03:01:53
+https://api.acdevftp.com/api/V1/getDeviceList
+{'apiKey': 'g^M2pTbn@oTiUb5qEI0eR7roeJx@OZGylSFpxaDc', 'customer_id': 'B428C830-83A3-1614-918E-75788BBAFA06'}
+FAILED
+<html>
+<head><title>503 Service Temporarily Unavailable</title></head>
+<body>
+<center><h1>503 Service Temporarily Unavailable</h1></center>
+</body>
+</html>
+
+2025-08-03 03:01:54
+https://api.acdevftp.com/api/V1/GetUrlConnectAsInstaller
+{'apiKey': 'g^M2pTbn@oTiUb5qEI0eR7roeJx@OZGylSFpxaDc', 'id': 'AB0374F9-5BB9-4505-A276-2247132269E7'}
+FAILED
+<html>
+<head><title>503 Service Temporarily Unavailable</title></head>
+<body>
+<center><h1>503 Service Temporarily Unavailable</h1></center>
+</body>
+</html>
+

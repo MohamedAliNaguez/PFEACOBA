@@ -6,8 +6,7 @@ test('Login and save session as dis', async ({ page }) => {
 
   await login(page, TEST_EMAILD, TEST_PASSWORD);
 
-  // Wait for a specific element that appears only after login
-  await page.waitForSelector('text=Installers', { timeout: 300000 }); // waits up to 30 seconds
+   await page.waitForSelector('text=Installers', { timeout: 300000 });
 
   await expect(page.getByText('Installers', { exact: true })).toBeVisible();
 
