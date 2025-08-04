@@ -20,12 +20,6 @@ export default defineConfig({
    expect: {
     timeout: 30000 
   },
-  use: {
-    trace: 'on',
-    screenshot: 'only-on-failure',
-    video: 'retain-on-failure',
-    
-  },
   projects: [
     {
       name: 'chromium',
