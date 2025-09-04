@@ -1,0 +1,84 @@
+# Test info
+
+- Name: Distrobutor Installers menu tests >> Verify the display of installers list
+- Location: C:\Users\Daly\OneDrive - ESPRIT\Documents\Stage PFE\CMS_Browser_E2E_tests\tests\distributor\distributor-menutests.spec.ts:15:7
+
+# Error details
+
+```
+Error: browserType.launch: Executable doesn't exist at C:\Users\Daly\AppData\Local\ms-playwright\chromium_headless_shell-1169\chrome-win\headless_shell.exe
+╔═════════════════════════════════════════════════════════════════════════╗
+║ Looks like Playwright Test or Playwright was just installed or updated. ║
+║ Please run the following command to download new browsers:              ║
+║                                                                         ║
+║     npx playwright install                                              ║
+║                                                                         ║
+║ <3 Playwright Team                                                      ║
+╚═════════════════════════════════════════════════════════════════════════╝
+```
+
+# Test source
+
+```ts
+   1 | import { test, expect } from '@playwright/test';
+   2 |
+   3 | test.describe('Distrobutor Installers menu tests', () => {
+   4 |   test.use({ storageState: 'authd.json' });
+   5 |
+   6 |   test.beforeEach(async ({ page }) => {
+   7 |     await page.goto('https://dashboard.cam2drive-bt.com/customers/');
+   8 |   });
+   9 |
+  10 |   function getRandomString(length = 10) {
+  11 |     const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  12 |     return Array.from({ length }, () => chars[Math.floor(Math.random() * chars.length)]).join('');
+  13 |   }
+  14 |
+> 15 |   test('Verify the display of installers list', async ({ page }) => {
+     |       ^ Error: browserType.launch: Executable doesn't exist at C:\Users\Daly\AppData\Local\ms-playwright\chromium_headless_shell-1169\chrome-win\headless_shell.exe
+  16 |     await page.getByRole('link', { name: 'My Installers' }).click();
+  17 |     await expect(page.getByText('Installers', { exact: true })).toBeVisible();
+  18 |     await expect(page.getByRole('button', { name: 'Add Installer' })).toBeVisible();
+  19 |     await expect(page.getByText('Rows per page:')).toBeVisible();
+  20 |   });
+  21 |
+  22 |   test('Verify the display of "Users & Roles"', async ({ page }) => {
+  23 |     await page.getByRole('link', { name: 'Users & Roles' }).click();
+  24 |     await expect(page.getByRole('tab', { name: 'Users' })).toBeVisible();
+  25 |     await expect(page.getByRole('tab', { name: 'Roles' })).toBeVisible();
+  26 |     await expect(page.getByRole('button', { name: 'Add User' })).toBeVisible();
+  27 |     await expect(page.getByText('Email')).toBeVisible();
+  28 |     await expect(page.getByText('Role', { exact: true })).toBeVisible();
+  29 |     await expect(page.getByText('Actions')).toBeVisible();
+  30 |   });
+  31 |
+  32 |  test('Add new installer', async ({ page }) => {
+  33 |         await page.getByRole('button', { name: 'Add Installer' }).click();
+  34 |         await expect(page.getByRole('heading', { name: 'Add new installer' })).toBeVisible();
+  35 |
+  36 |         const randomString = Math.random().toString(36).substring(2, 7);
+  37 |         const company = `Company-${randomString}`;
+  38 |         const email = `user${randomString}@test.com`;
+  39 |         // Generate phone number not starting with 1, 6, or 0
+  40 |         const firstDigit = ['2', '3', '4', '5', '7', '8', '9'][Math.floor(Math.random() * 7)];
+  41 |         const phone = firstDigit + Math.floor(1000000 + Math.random() * 9000000).toString();
+  42 |
+  43 |         await page.getByRole('textbox', { name: 'Company' }).fill(company);
+  44 |         await page.getByRole('textbox', { name: 'Email' }).fill(email);
+  45 |         await page.getByRole('textbox', { name: 'Phone Number' }).fill(phone);
+  46 |         await page.getByRole('button', { name: 'Submit' }).click();
+  47 |         await expect(page.getByText('installer created successfully')).toBeVisible();
+  48 |       });
+  49 |
+  50 |   test('edit installer', async ({ page }) => {
+  51 |     await expect(page.getByText('Installers', { exact: true })).toBeVisible();
+  52 |     await expect(page.getByRole('button', { name: 'Edit' }).nth(2)).toBeVisible();
+  53 |     await page.getByRole('button', { name: 'Edit' }).first().click();
+  54 |     await expect(page.getByRole('heading', { name: 'Edit installer' })).toBeVisible();
+  55 |     await page.getByRole('textbox', { name: 'Company' }).click();
+  56 |     await page.getByRole('textbox', { name: 'Company' }).fill(getRandomString());
+  57 |     await page.getByRole('button', { name: 'Submit' }).click();
+  58 |     await expect(page.getByText('installer updated successfully')).toBeVisible();
+  59 |   });
+  60 | });
+```

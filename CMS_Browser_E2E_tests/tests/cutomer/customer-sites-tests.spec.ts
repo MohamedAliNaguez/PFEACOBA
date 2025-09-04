@@ -9,6 +9,8 @@ test.describe('Customer Sites managemment', () => {
 
   async function connectAsTestCustomer(page) {
     await expect(page.getByText('distributor')).toBeVisible();
+          await page.getByRole('textbox', { name: 'Email' }).fill('daly');
+
     await expect(page.getByText('dalynaguez@gmail.com')).toBeVisible();
 await page.getByRole('row')
   .filter({ hasText: 'dalynaguez@gmail.com' })

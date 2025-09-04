@@ -13,7 +13,7 @@ export default defineConfig({
       outputFolder: 'allure-results',
       detail: true,
       suiteTitle: true,
-      outputDir: 'test-results'
+      outputDir: 'allure-results'
 
     }]
   ],

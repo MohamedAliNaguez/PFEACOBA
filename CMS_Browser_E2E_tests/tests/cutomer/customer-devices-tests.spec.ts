@@ -8,6 +8,8 @@ test.describe('Customer Device Management', () => {
   });
 
   async function connectAsTestCustomer(page) {
+      await page.getByRole('textbox', { name: 'Email' }).fill('daly');
+
     await expect(page.getByText('dalynaguez@gmail.com', { exact: false })).toBeVisible({ timeout: 300000 });
 await page.getByRole('row')
   .filter({ hasText: 'dalynaguez@gmail.com' })
