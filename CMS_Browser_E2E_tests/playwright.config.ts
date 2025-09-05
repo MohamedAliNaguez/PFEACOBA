@@ -10,10 +10,10 @@ export default defineConfig({
   reporter: [
     ['line'],
     ['allure-playwright', { 
-      outputFolder: 'allure-results',
+      outputFolder: '../allure-results',
       detail: true,
       suiteTitle: true,
-      outputDir: 'allure-results'
+      outputDir: '../allure-results'
 
     }]
   ],
