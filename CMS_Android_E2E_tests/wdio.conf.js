@@ -46,7 +46,7 @@ exports.config = {
     [
       "allure",
       {
-        outputDir: "../../allure-results",
+        outputDir: "../ALLURE_RESULTS",
         disableWebdriverStepsReporting: true,
         disableWebdriverScreenshotsReporting: false,
       },
