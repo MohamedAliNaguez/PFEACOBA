@@ -10,14 +10,12 @@ export default defineConfig({
   reporter: [
     ['line'],
     ['allure-playwright', { 
-      outputFolder: '../allure-results',
+      outputFolder: require('path').resolve(__dirname, '../../allure-results'),
       detail: true,
-      suiteTitle: true,
-      outputDir: '../allure-results'
-
+      suiteTitle: true
     }]
   ],
-   expect: {
+  expect: {
     timeout: 30000 
   },
   projects: [
